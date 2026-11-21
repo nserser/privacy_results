@@ -1,0 +1,112 @@
+{
+  "jobs": [
+    {
+      "config": {
+        "A": 0.55,
+        "B": 0.05,
+        "eta": 0.1,
+        "grid_label": "BASE",
+        "line": "P1",
+        "m": 0.5,
+        "max_r": 4096,
+        "nmodes": 32,
+        "nx": 1201,
+        "tail_sigma": 40.0,
+        "tol": 1e-11,
+        "x_max": 6.0,
+        "z": 2.0
+      },
+      "id": "e62c8760d22581f75e10"
+    },
+    {
+      "config": {
+        "A": 0.55,
+        "B": 0.05,
+        "eta": 0.1,
+        "grid_label": "GRID",
+        "line": "P1",
+        "m": 0.5,
+        "max_r": 4096,
+        "nmodes": 32,
+        "nx": 2401,
+        "tail_sigma": 40.0,
+        "tol": 1e-11,
+        "x_max": 6.0,
+        "z": 2.0
+      },
+      "id": "c4cdfc0fae88e2e66916"
+    },
+    {
+      "config": {
+        "A": 0.55,
+        "B": 0.05,
+        "eta": 0.1,
+        "grid_label": "DOMAIN",
+        "line": "P1",
+        "m": 0.5,
+        "max_r": 4096,
+        "nmodes": 32,
+        "nx": 1601,
+        "tail_sigma": 40.0,
+        "tol": 1e-11,
+        "x_max": 8.0,
+        "z": 2.0
+      },
+      "id": "6af128d7fd075cc44eac"
+    },
+    {
+      "config": {
+        "A": 0.55,
+        "B": 0.05,
+        "eta": 0.1,
+        "grid_label": "BASE",
+        "line": "P2",
+        "m": 0.5,
+        "max_r": 65536,
+        "nmodes": 32,
+        "nx": 1201,
+        "tail_sigma": 40.0,
+        "tol": 1e-11,
+        "x_max": 6.0,
+        "z": 4.0
+      },
+      "id": "b785dd0c8b91663deda2"
+    },
+    {
+      "config": {
+        "A": 0.55,
+        "B": 0.05,
+        "eta": 0.1,
+        "grid_label": "GRID",
+        "line": "P2",
+        "m": 0.5,
+        "max_r": 65536,
+        "nmodes": 32,
+        "nx": 2401,
+        "tail_sigma": 40.0,
+        "tol": 1e-11,
+        "x_max": 6.0,
+        "z": 4.0
+      },
+      "id": "aff2c1c8158c33d512d6"
+    },
+    {
+      "config": {
+        "A": 0.55,
+        "B": 0.05,
+        "eta": 0.1,
+        "grid_label": "DOMAIN",
+        "line": "P2",
+        "m": 0.5,
+        "max_r": 65536,
+        "nmodes": 32,
+        "nx": 1601,
+        "tail_sigma": 40.0,
+        "tol": 1e-11,
+        "x_max": 8.0,
+        "z": 4.0
+      },
+      "id": "bcb3ac3262c267315b58"
+    }
+  ]
+}

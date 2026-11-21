@@ -1,0 +1,5 @@
+numpy==2.2.6
+scipy==1.15.3
+dp-accounting==0.7.0
+pytest==9.2.0
+matplotlib==3.10.9

@@ -1,0 +1,112 @@
+stages: [gaussian, nonlinear, convergence, memory, multiepoch, stress, usercap, bridges, bridge_convergence]
+common:
+  x_max: 10.0
+  nx: 801
+  mass_tol: 1.0e-7
+  cc_method: be
+  cc_substeps: 8
+  theory_theta: 1.0
+  theory_slack: 0.03
+  epsilon_grid: [0.0, 0.1, 0.25, 0.5, 1.0, 2.0, 4.0]
+  delta_targets: [1.0e-3, 1.0e-5]
+  memory_tail_tol: 1.0e-6
+  memory_max_age: 4096
+  memory_tail_window: 4
+gaussian:
+  M: [16, 32, 64, 128, 256, 512]
+  b: [1, 8]
+  series_tol: 1.0e-13
+  cases:
+    - {k: 1, mu: 0.25, rho: 0.5}
+    - {k: 2, mu: 0.25, rho: 0.5}
+    - {k: 4, mu: 0.25, rho: 0.5}
+    - {k: 2, mu: 0.50, rho: 0.5}
+    - {k: 2, mu: 0.25, rho: 0.8}
+    - {k: 2, mu: 0.25, rho: 0.95}
+    - {k: 2, mu: 0.25, rho: 1.0}
+nonlinear:
+  M: [16, 32, 64, 128, 256]
+  cases:
+    - {b: 1, k: 1, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+    - {b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+    - {b: 1, k: 4, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+    - {b: 8, k: 4, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+    - {b: 1, k: 4, m: 0.5, A: 0.55, G: 0.05, tau: 1.0}
+    - {b: 8, k: 4, m: 0.5, A: 0.55, G: 0.05, tau: 1.0}
+    - {b: 1, k: 2, m: 0.5, A: 0.80, B: 0.05, tau: 1.0}
+    - {b: 1, k: 2, m: 0.5, A: 1.20, B: 0.05, tau: 1.0}
+    - {b: 1, k: 2, m: 0.5, A: 0.55, B: 0.025, tau: 1.0}
+    - {b: 1, k: 2, m: 0.5, A: 0.55, B: 0.10, tau: 1.0}
+    - {b: 1, k: 2, m: 0.5, A: 0.55, B: 0.20, tau: 1.0}
+convergence:
+  anchors:
+    - {M: 32, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, tau: 1.0, convergence_group: base}
+    - {M: 64, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, tau: 1.0, convergence_group: base}
+    - {M: 128, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, tau: 1.0, convergence_group: base}
+    - {M: 32, b: 1, k: 2, m: 0.5, A: 1.20, B: 0.05, tau: 1.0, convergence_group: metastable}
+    - {M: 64, b: 1, k: 2, m: 0.5, A: 1.20, B: 0.05, tau: 1.0, convergence_group: metastable}
+    - {M: 128, b: 1, k: 2, m: 0.5, A: 1.20, B: 0.05, tau: 1.0, convergence_group: metastable}
+  variants:
+    - {variant_label: reference, x_max: 10.0, nx: 801, cc_method: be, cc_substeps: 8}
+    - {variant_label: domain, x_max: 14.0, nx: 1121, cc_method: be, cc_substeps: 8}
+    - {variant_label: grid, x_max: 10.0, nx: 1601, cc_method: be, cc_substeps: 8}
+    - {variant_label: time, x_max: 10.0, nx: 801, cc_method: be, cc_substeps: 16}
+    - {variant_label: joint, x_max: 14.0, nx: 2241, cc_method: be, cc_substeps: 16}
+    - {variant_label: expm, M_values: [32], x_max: 14.0, nx: 2241, cc_method: expm, cc_substeps: 1}
+memory:
+  cases:
+    - {M: 128, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+    - {M: 128, m: 0.5, A: 0.80, B: 0.05, tau: 1.0}
+    - {M: 128, m: 0.5, A: 1.20, B: 0.05, tau: 1.0}
+multiepoch:
+  E_values: [1, 2, 4, 8, 16, 32]
+  cases:
+    - {M: 64, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+    - {M: 64, b: 1, k: 2, m: 0.5, A: 0.80, B: 0.05, tau: 1.0}
+stress:
+  nonlinear_cases:
+    - {M: 16, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, tau: 1.0, known_support: true, known_support_max_patterns: 5000}
+    - {M: 64, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.025, tau: 1.0}
+    - {M: 64, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.10, tau: 1.0}
+    - {M: 64, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.20, tau: 1.0}
+    - {M: 64, b: 8, k: 2, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+    - {M: 64, b: 8, k: 4, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+    - {M: 64, b: 8, k: 8, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+    - {M: 64, b: 1, k: 4, m: 0.5, A: 0.55, G: 0.05, tau: 1.0}
+    - {M: 64, b: 8, k: 4, m: 0.5, A: 0.55, G: 0.05, tau: 1.0}
+  gaussian_cases:
+    - {M: 64, b: 1, k: 2, mu: 0.25, rho: 1.0, series_tol: 1.0e-13}
+usercap:
+  M: [32, 64, 128, 256]
+  cases:
+    - {cap_k: 2, b: 1, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+    - {cap_k: 4, b: 1, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+bridges:
+  M: [16, 32, 64, 128]
+  b: 1
+  k: [1, 2, 4]
+  m: 0.5
+  A: 0.55
+  B: 0.05
+  tau: 1.0
+  eta_sgld: [0.25, 0.125, 0.0625]
+  eta_dpsgd: [0.20, 0.10]
+  noise_multiplier: [2.0, 4.0, 8.0]
+  mass_loss_tol: 1.0e-8
+  tail_sigma: 40.0
+  solver_sgld: {x_max: 10.0, nx: 1001, drop_tol: 0.0}
+  solver_dpsgd: {x_max: 6.0, nx: 1201, drop_tol: 0.0}
+bridge_convergence:
+  mass_loss_tol: 1.0e-8
+  tail_sigma: 40.0
+  anchors:
+    - {M: 32, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, eta: 0.10, noise_multiplier: 2.0, discrete_convergence_group: z2}
+    - {M: 64, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, eta: 0.10, noise_multiplier: 2.0, discrete_convergence_group: z2}
+    - {M: 128, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, eta: 0.10, noise_multiplier: 2.0, discrete_convergence_group: z2}
+    - {M: 32, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, eta: 0.10, noise_multiplier: 4.0, discrete_convergence_group: z4}
+    - {M: 64, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, eta: 0.10, noise_multiplier: 4.0, discrete_convergence_group: z4}
+    - {M: 128, b: 1, k: 2, m: 0.5, A: 0.55, B: 0.05, eta: 0.10, noise_multiplier: 4.0, discrete_convergence_group: z4}
+  variants:
+    - {variant_label: dbase, x_max: 6.0, nx: 1201, drop_tol: 0.0}
+    - {variant_label: dgrid, x_max: 6.0, nx: 2401, drop_tol: 0.0}
+    - {variant_label: ddomain, x_max: 8.0, nx: 1601, drop_tol: 0.0}

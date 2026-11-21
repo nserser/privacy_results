@@ -1,0 +1,130 @@
+{
+  "M": 512,
+  "absent_escaped_mass": 4.688753406658257e-14,
+  "absent_latent_mass_error": -4.033721822129415e-14,
+  "absent_survived_mass": 0.9999999999999933,
+  "absent_total_mass_defect": 6.661338147750939e-15,
+  "b": 1,
+  "chi2_forward": 0.0007664440232871801,
+  "chi2_reverse": Infinity,
+  "config": {
+    "A": 0.55,
+    "B": 0.05,
+    "M": 512,
+    "b": 1,
+    "eta": 0.1,
+    "grid_label": "BASE",
+    "k": 2,
+    "line": "P1",
+    "m": 0.5,
+    "max_r": 4096,
+    "nmodes": 32,
+    "nx": 1201,
+    "tail_sigma": 40.0,
+    "tol": 1e-11,
+    "x_max": 6.0,
+    "z": 2.0
+  },
+  "elapsed_s": 0.8592479228973389,
+  "epsilon": {
+    "0.001": {
+      "epsilon_conditional_grid": 0.04013907174213387,
+      "epsilon_final_upper_with_mass_defect": 0.040139071742277405
+    },
+    "1e-05": {
+      "epsilon_conditional_grid": 0.09954050357692067,
+      "epsilon_final_upper_with_mass_defect": 0.09954050360181334
+    }
+  },
+  "evidence_label": "DIRECT_FULL_GRID",
+  "grid": "BASE",
+  "id": "088a20f16d7d77d2b199",
+  "k": 2,
+  "line": "P1",
+  "present_escaped_mass": 4.6947070584192005e-14,
+  "present_latent_mass_error": -3.639995185025302e-14,
+  "present_survived_mass": 0.9999999999999893,
+  "present_total_mass_defect": 1.0658141036401503e-14,
+  "privacy_profile_grid": [
+    {
+      "delta_forward": 0.010954038185807787,
+      "delta_forward_upper": 0.010954038185825106,
+      "delta_reverse": 0.010954038185807972,
+      "delta_reverse_upper": 0.010954038185825292,
+      "delta_symmetric": 0.010954038185807972,
+      "delta_symmetric_upper": 0.010954038185825292,
+      "epsilon": 0.0,
+      "tau_p": 1.0658141036401503e-14,
+      "tau_q": 6.661338147750939e-15
+    },
+    {
+      "delta_forward": 9.667669764891591e-06,
+      "delta_forward_upper": 9.66766978291165e-06,
+      "delta_reverse": 6.608000557722036e-06,
+      "delta_reverse_upper": 6.608000576162441e-06,
+      "delta_symmetric": 9.667669764891591e-06,
+      "delta_symmetric_upper": 9.66766978291165e-06,
+      "epsilon": 0.1,
+      "tau_p": 1.0658141036401503e-14,
+      "tau_q": 6.661338147750939e-15
+    },
+    {
+      "delta_forward": 8.378373778053136e-28,
+      "delta_forward_upper": 1.9211468527266187e-14,
+      "delta_reverse": 1.2700946196155572e-103,
+      "delta_reverse_upper": 2.0346662133133093e-14,
+      "delta_symmetric": 8.378373778053136e-28,
+      "delta_symmetric_upper": 2.0346662133133093e-14,
+      "epsilon": 0.25,
+      "tau_p": 1.0658141036401503e-14,
+      "tau_q": 6.661338147750939e-15
+    },
+    {
+      "delta_forward": 7.861786287635366e-73,
+      "delta_forward_upper": 2.164083093192467e-14,
+      "delta_reverse": 5e-324,
+      "delta_reverse_upper": 2.4233641980588006e-14,
+      "delta_symmetric": 7.861786287635366e-73,
+      "delta_symmetric_upper": 2.4233641980588006e-14,
+      "epsilon": 0.5,
+      "tau_p": 1.0658141036401503e-14,
+      "tau_q": 6.661338147750939e-15
+    },
+    {
+      "delta_forward": 9.936280135710393e-145,
+      "delta_forward_upper": 2.8765535476653913e-14,
+      "delta_reverse": 5e-324,
+      "delta_reverse_upper": 3.56331692521548e-14,
+      "delta_symmetric": 9.936280135710393e-145,
+      "delta_symmetric_upper": 3.56331692521548e-14,
+      "epsilon": 1.0,
+      "tau_p": 1.0658141036401503e-14,
+      "tau_q": 6.661338147750939e-15
+    },
+    {
+      "delta_forward": 8.261607210481035e-240,
+      "delta_forward_upper": 5.987914230407999e-14,
+      "delta_reverse": 5e-324,
+      "delta_reverse_upper": 8.54149401760365e-14,
+      "delta_symmetric": 8.261607210481035e-240,
+      "delta_symmetric_upper": 8.54149401760365e-14,
+      "epsilon": 2.0,
+      "tau_p": 1.0658141036401503e-14,
+      "tau_q": 6.661338147750939e-15
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 3.743548806488144e-13,
+      "delta_reverse": 5e-324,
+      "delta_reverse_upper": 5.885761215276116e-13,
+      "delta_symmetric": 5e-324,
+      "delta_symmetric_upper": 5.885761215276116e-13,
+      "epsilon": 4.0,
+      "tau_p": 1.0658141036401503e-14,
+      "tau_q": 6.661338147750939e-15
+    }
+  ],
+  "status": "OK",
+  "tv_symmetric_grid": 0.010954038185807879,
+  "tv_symmetric_upper_mass_defect": 0.010954038185825198
+}

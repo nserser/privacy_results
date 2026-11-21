@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "memfront2_review_package_sha256": "8adcb2fe8cc490960fcd60c2b8b4a80d2aefac26ae33cb66c1718eff616956fb",
+  "memfront2_git_sync_commit": "c1d885c7a1649030b167cb4f354e4462074cac96",
+  "frozen_source_commit": "5a53dda02a56d03b29bbe477efc9c10258c0ba28",
+  "memfront2_sha256_manifest": "PASS",
+  "core_tests": "22 passed",
+  "worker_equivalence": "PASS exact 1-worker/4-worker, 8 records",
+  "feldman_shenfeld": {"repository":"https://github.com/moshenfeld/PLD_accounting","branch":"MS-FFT-paper","commit":"fde83c45bf12c4f7821832c7d5d2ae2841fc0910"},
+  "gpu_requested": false,
+  "gpu_used": false,
+  "visible_cpus": 8,
+  "initial_pytest_invocation_issue": "Initial collection lacked PYTHONPATH and failed imports; corrected invocation passed all 22 tests. No test failure occurred."
+}

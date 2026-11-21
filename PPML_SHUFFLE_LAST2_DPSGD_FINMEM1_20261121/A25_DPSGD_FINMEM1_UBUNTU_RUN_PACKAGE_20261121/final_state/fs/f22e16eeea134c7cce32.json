@@ -1,0 +1,19 @@
+{
+  "M": 256,
+  "api_module": "PLD_accounting",
+  "api_signature": "(*, delta: 'float', sigma: 'float', num_steps: 'int', num_selected: 'int' = 1, num_epochs: 'int' = 1, epsilon_accuracy: 'float' = -1.0) -> 'tuple[float, float]'",
+  "b": 1,
+  "delta": 0.001,
+  "epsilon_accuracy": -1.0,
+  "epsilon_lower": 0.11734569095856326,
+  "epsilon_upper": 0.1252648690715888,
+  "evidence_label": "EXTERNAL_ACCOUNTANT",
+  "id": "f22e16eeea134c7cce32",
+  "k": 2,
+  "line": "P1",
+  "num_epochs": 1,
+  "num_selected": 2,
+  "num_steps": 256,
+  "raw_repr": "(0.1252648690715888, 0.11734569095856326)",
+  "sigma": 2.0
+}

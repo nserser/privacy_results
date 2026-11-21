@@ -1,0 +1,73 @@
+{
+  "checks": [
+    {
+      "check": "P1_closure_gate_recomputed_fail",
+      "detail": "LTV spread=0.058230393; slow-tau spread=1.1874615",
+      "pass": true
+    },
+    {
+      "check": "P1_heldout_reconstruction",
+      "detail": "all three required grids <=5%",
+      "pass": true
+    },
+    {
+      "check": "P1_slow_mode_residual",
+      "detail": "decision records full and slow-mode residuals separately",
+      "pass": true
+    },
+    {
+      "check": "P2_closure_gate_recomputed_fail",
+      "detail": "LTV spread=0.021332524; slow-tau spread=0.054078412",
+      "pass": true
+    },
+    {
+      "check": "P2_heldout_reconstruction",
+      "detail": "all three required grids <=5%",
+      "pass": true
+    },
+    {
+      "check": "P2_slow_mode_residual",
+      "detail": "decision records full and slow-mode residuals separately",
+      "pass": true
+    },
+    {
+      "check": "M0_pass",
+      "detail": "frozen checks and worker-equivalence verified",
+      "pass": true
+    },
+    {
+      "check": "GPU_not_used",
+      "detail": "CPU-only execution",
+      "pass": true
+    },
+    {
+      "check": "historical_statuses_unchanged",
+      "detail": "historical statuses preserved",
+      "pass": true
+    },
+    {
+      "check": "downstream_not_run",
+      "detail": "fail-closed stages remain unexecuted",
+      "pass": true
+    },
+    {
+      "check": "terminal_decision_correct",
+      "detail": "closure failure maps to REPAIR",
+      "pass": true
+    },
+    {
+      "check": "job_manifest_consistent",
+      "detail": "13 spectral jobs completed; five downstream stages blocked",
+      "pass": true
+    },
+    {
+      "check": "package_hashes_current",
+      "detail": "all listed files match SHA-256 manifest",
+      "pass": true
+    }
+  ],
+  "checks_passed": 13,
+  "checks_total": 13,
+  "scientific_outcome": "REPAIR_MEMFRONT2; no final-state result authorized",
+  "status": "PASS"
+}

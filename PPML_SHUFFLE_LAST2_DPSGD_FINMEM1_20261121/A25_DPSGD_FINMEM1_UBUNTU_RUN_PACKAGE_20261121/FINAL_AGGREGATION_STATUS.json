@@ -1,0 +1,85 @@
+{
+  "crossovers": [
+    {
+      "M_decay": 256,
+      "M_peak": 256,
+      "line": "P1",
+      "max_M": 16384,
+      "max_x": 74.44674511833924,
+      "x_decay": 1.4310377169085373,
+      "x_peak": 1.4310377169085373
+    },
+    {
+      "M_decay": 4096,
+      "M_peak": 4096,
+      "line": "P2",
+      "max_M": 262144,
+      "max_x": 29.6731417889779,
+      "x_decay": 3.9217818101269635,
+      "x_peak": 3.9217818101269635
+    }
+  ],
+  "final_state_complete": true,
+  "final_state_completed_unique": 32,
+  "final_state_expected_jobs": 32,
+  "fits": [
+    {
+      "R2": 0.9999999968370828,
+      "R2_drop_first": 0.9999999999863032,
+      "beta_CI95_high": 0.9999948516993169,
+      "beta_CI95_low": 0.9997882055798861,
+      "beta_TV": 0.9998915286396015,
+      "beta_drop_first": 0.9999477014390349,
+      "evidence_label": "DIRECT_FULL_GRID",
+      "fit_window_M": "1024-16384",
+      "line": "P1",
+      "n": 5,
+      "status": "PASS",
+      "x_threshold": 4
+    },
+    {
+      "R2": 0.9999999999863032,
+      "R2_drop_first": 0.9999999999732401,
+      "beta_CI95_high": 0.999958960649227,
+      "beta_CI95_low": 0.9999364422288428,
+      "beta_TV": 0.9999477014390349,
+      "beta_drop_first": 0.999945582755668,
+      "evidence_label": "DIRECT_FULL_GRID",
+      "fit_window_M": "2048-16384",
+      "line": "P1",
+      "n": 4,
+      "status": "PASS",
+      "x_threshold": 8
+    },
+    {
+      "R2": 0.9984841452870666,
+      "R2_drop_first": 0.9999715482393465,
+      "beta_CI95_high": 1.057769517942744,
+      "beta_CI95_low": 0.833563389710821,
+      "beta_TV": 0.9456664538267825,
+      "beta_drop_first": 0.9906080153160023,
+      "evidence_label": "DIRECT_FULL_GRID",
+      "fit_window_M": "32768-262144",
+      "line": "P2",
+      "n": 4,
+      "status": "PASS",
+      "x_threshold": 4
+    },
+    {
+      "R2": NaN,
+      "R2_drop_first": NaN,
+      "beta_CI95_high": NaN,
+      "beta_CI95_low": NaN,
+      "beta_TV": NaN,
+      "beta_drop_first": NaN,
+      "evidence_label": "DIRECT_FULL_GRID",
+      "fit_window_M": "",
+      "line": "P2",
+      "n": 2,
+      "status": "INSUFFICIENT_POINTS",
+      "x_threshold": 8
+    }
+  ],
+  "fs_queries_completed": 10,
+  "fs_queries_expected": 40
+}

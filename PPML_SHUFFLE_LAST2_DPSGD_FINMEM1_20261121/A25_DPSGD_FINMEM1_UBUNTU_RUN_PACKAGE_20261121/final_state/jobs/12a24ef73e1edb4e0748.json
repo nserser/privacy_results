@@ -1,0 +1,130 @@
+{
+  "M": 16384,
+  "absent_escaped_mass": 2.078662366557913e-12,
+  "absent_latent_mass_error": -9.514529296559917e-13,
+  "absent_survived_mass": 0.9999999999988728,
+  "absent_total_mass_defect": 1.1272094369019214e-12,
+  "b": 1,
+  "chi2_forward": 8.099228228653711e-07,
+  "chi2_reverse": 8.098440954485481e-07,
+  "config": {
+    "A": 0.55,
+    "B": 0.05,
+    "M": 16384,
+    "b": 1,
+    "eta": 0.1,
+    "grid_label": "GRID",
+    "k": 2,
+    "line": "P1",
+    "m": 0.5,
+    "max_r": 4096,
+    "nmodes": 32,
+    "nx": 2401,
+    "tail_sigma": 40.0,
+    "tol": 1e-11,
+    "x_max": 6.0,
+    "z": 2.0
+  },
+  "elapsed_s": 67.31904673576355,
+  "epsilon": {
+    "0.001": {
+      "epsilon_conditional_grid": 0.0,
+      "epsilon_final_upper_with_mass_defect": 0.0
+    },
+    "1e-05": {
+      "epsilon_conditional_grid": 0.0018280467968214754,
+      "epsilon_final_upper_with_mass_defect": 0.0018280469032943489
+    }
+  },
+  "evidence_label": "DIRECT_FULL_GRID",
+  "grid": "GRID",
+  "id": "12a24ef73e1edb4e0748",
+  "k": 2,
+  "line": "P1",
+  "present_escaped_mass": 2.078589197735107e-12,
+  "present_latent_mass_error": -9.487152255740852e-13,
+  "present_survived_mass": 0.9999999999988701,
+  "present_total_mass_defect": 1.1298739721610218e-12,
+  "privacy_profile_grid": [
+    {
+      "delta_forward": 0.00035614729700781506,
+      "delta_forward_upper": 0.00035614729926489847,
+      "delta_reverse": 0.00035614729700765774,
+      "delta_reverse_upper": 0.00035614729926474115,
+      "delta_symmetric": 0.00035614729700781506,
+      "delta_symmetric_upper": 0.00035614729926489847,
+      "epsilon": 0.0,
+      "tau_p": 1.1298739721610218e-12,
+      "tau_q": 1.1272094369019214e-12
+    },
+    {
+      "delta_forward": 2.4648755412467313e-229,
+      "delta_forward_upper": 2.3756330604054525e-12,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 2.375913292024897e-12,
+      "delta_symmetric": 2.4648755412467313e-229,
+      "delta_symmetric_upper": 2.375913292024897e-12,
+      "epsilon": 0.1,
+      "tau_p": 1.1298739721610218e-12,
+      "tau_q": 1.1272094369019214e-12
+    },
+    {
+      "delta_forward": 1.047e-321,
+      "delta_forward_upper": 2.577239539073366e-12,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 2.577996334810611e-12,
+      "delta_symmetric": 1.047e-321,
+      "delta_symmetric_upper": 2.577996334810611e-12,
+      "epsilon": 0.25,
+      "tau_p": 1.1298739721610218e-12,
+      "tau_q": 1.1272094369019214e-12
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 2.988328147315134e-12,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 2.9900566880142426e-12,
+      "delta_symmetric": 0.0,
+      "delta_symmetric_upper": 2.9900566880142426e-12,
+      "epsilon": 0.5,
+      "tau_p": 1.1298739721610218e-12,
+      "tau_q": 1.1272094369019214e-12
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 4.1939469013590676e-12,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 4.198525323876068e-12,
+      "delta_symmetric": 0.0,
+      "delta_symmetric_upper": 4.198525323876068e-12,
+      "epsilon": 1.0,
+      "tau_p": 1.1298739721610218e-12,
+      "tau_q": 1.1272094369019214e-12
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 9.458887736673348e-12,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 9.47591160192132e-12,
+      "delta_symmetric": 0.0,
+      "delta_symmetric_upper": 9.47591160192132e-12,
+      "epsilon": 2.0,
+      "tau_p": 1.1298739721610218e-12,
+      "tau_q": 1.1272094369019214e-12
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 6.267342392690816e-11,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 6.281623808749403e-11,
+      "delta_symmetric": 0.0,
+      "delta_symmetric_upper": 6.281623808749403e-11,
+      "epsilon": 4.0,
+      "tau_p": 1.1298739721610218e-12,
+      "tau_q": 1.1272094369019214e-12
+    }
+  ],
+  "status": "OK",
+  "tv_symmetric_grid": 0.0003561472970077364,
+  "tv_symmetric_upper_mass_defect": 0.0003561472992648198
+}

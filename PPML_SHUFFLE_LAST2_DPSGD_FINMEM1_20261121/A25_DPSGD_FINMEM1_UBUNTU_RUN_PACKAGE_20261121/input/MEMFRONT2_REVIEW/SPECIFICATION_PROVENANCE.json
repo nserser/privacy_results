@@ -1,0 +1,9 @@
+{
+  "CPU_policy": "process parallelism across independent spectral/grid jobs",
+  "GPU": "prohibited for this milestone",
+  "date_freeze": "2026-11-21",
+  "operative_gates": "MEMFRONT2_DECISION.json and FINAL_MEMFRONT2_REPORT.md",
+  "source": "user-provided frozen execution specification in conversation",
+  "specification_file_hash": "not separately available",
+  "title": "PPML-SHUFFLE-LAST2-DPSGD-MEMFRONT2"
+}

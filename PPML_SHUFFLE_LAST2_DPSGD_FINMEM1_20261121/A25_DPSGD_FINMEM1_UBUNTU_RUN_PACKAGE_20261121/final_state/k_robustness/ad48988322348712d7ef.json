@@ -1,0 +1,21 @@
+{
+  "M": 2048,
+  "absent_mass_defect": 1.0436096431476471e-14,
+  "b": 1,
+  "epsilon_upper": {
+    "0.001": 0.0008706468989861367,
+    "1e-05": 0.009383630251081248
+  },
+  "escaped_absent": 1.875501362663404e-13,
+  "escaped_present": 1.8758690253673753e-13,
+  "evidence_label": "DIRECT_FULL_GRID",
+  "grid": "BASE",
+  "id": "ad48988322348712d7ef",
+  "k": 1,
+  "line": "P1",
+  "present_latent_mass_error": -1.4240082543449366e-13,
+  "present_mass_defect": 4.529709940470639e-14,
+  "status": "OK",
+  "tv_grid": 0.0013862678886738542,
+  "tv_upper": 0.0013862678887295874
+}

@@ -1,0 +1,9 @@
+{
+  "cached_fs_results": 12,
+  "created_utc": "2026-11-21T16:51:22.242718+00:00",
+  "current_live_batch_left_untouched": true,
+  "expected_fs_queries": 40,
+  "fs_commit": "fde83c45bf12c4f7821832c7d5d2ae2841fc0910",
+  "gpu_used": false,
+  "source_investigation": "/users/anis.bkakria/privacy/PPML_SHUFFLE_LAST2_DPSGD_FINMEM1_INVESTIGATION_20261121"
+}

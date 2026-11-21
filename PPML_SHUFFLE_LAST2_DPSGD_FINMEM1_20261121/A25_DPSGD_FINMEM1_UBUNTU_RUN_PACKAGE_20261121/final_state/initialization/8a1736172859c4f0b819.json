@@ -1,0 +1,20 @@
+{
+  "M": 1024,
+  "absent_defect": 3.1530333899354446e-14,
+  "absent_escaped": 1.0960219480129692e-13,
+  "epsilon_upper": {
+    "0.001": 0.017017636323417146,
+    "1e-05": 0.05230930842752991
+  },
+  "evidence_label": "DIRECT_FULL_GRID",
+  "grid": "BASE",
+  "id": "8a1736172859c4f0b819",
+  "initialization": "well_minus",
+  "k": 2,
+  "line": "P1",
+  "present_defect": 3.2529534621517087e-14,
+  "present_escaped": 1.0942619185362979e-13,
+  "status": "OK",
+  "tv_grid": 0.005574145703097829,
+  "tv_upper": 0.005574145703161889
+}

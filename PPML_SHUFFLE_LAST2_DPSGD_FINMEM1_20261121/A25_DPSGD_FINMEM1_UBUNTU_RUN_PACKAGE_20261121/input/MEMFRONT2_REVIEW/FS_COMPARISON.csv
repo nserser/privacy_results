@@ -1,0 +1,2 @@
+line,M,delta,epsilon_final_upper,epsilon_FS_lower,epsilon_FS_upper,strict_win,status
+ALL,,,,,,,BLOCKED_BY_SPECTRAL_CLOSURE

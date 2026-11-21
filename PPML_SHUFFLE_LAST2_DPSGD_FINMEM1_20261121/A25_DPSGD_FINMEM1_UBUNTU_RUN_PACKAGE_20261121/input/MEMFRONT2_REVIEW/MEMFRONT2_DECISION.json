@@ -1,0 +1,157 @@
+{
+  "CPU_workers_max": 6,
+  "GPU_used": false,
+  "M0": "PASS",
+  "decision": "REPAIR_MEMFRONT2",
+  "failed_or_inconclusive_gates": [
+    "P1 completed LTV BASE/GRID/DOMAIN variation exceeds 5%",
+    "P1 dominant slow-mode tau is grid sensitive; BASE/GRID/DOMAIN do not agree within 5%",
+    "P2 dominant slow-mode tau BASE-to-GRID variation exceeds 5%",
+    "P2 32-mode decomposition has higher-mode left residuals above 1e-9; all residuals are reported, while dominant slow-mode residuals are near machine precision",
+    "secondary lines with low direct response are below reliable relative-error floor"
+  ],
+  "feldman_shenfeld": "NOT_RUN",
+  "final_state_scaling": "NOT_RUN_BLOCKED_BY_SPECTRAL_CLOSURE",
+  "historical_decisions_preserved": {
+    "MEMFRONT1": "REPAIR_MEMFRONT",
+    "SCALECERT": "STOP_REALISTIC_DP_SGD"
+  },
+  "memory_closure": {
+    "P1": {
+      "completed_LTV_relative_spread_vs_BASE": 0.058230393308908036,
+      "heldout_pass": true,
+      "memory_closed": false,
+      "reason": "cross-grid completed LTV spread exceeds 5%; slow-mode tau is also highly grid sensitive",
+      "required_grids": {
+        "BASE": {
+          "LTV_completed_point_estimate": 37156.90088173293,
+          "amplitude_L1": 3.952596196299191e-07,
+          "heldout_max_relative_error": 4.3290195842431197e-07,
+          "max_retained_eigenpair_residual": 1.4204586724114147e-06,
+          "slow_mode_eigenpair_residual": 1.101014884924875e-14,
+          "tau": 172448230.51151374
+        },
+        "DOMAIN": {
+          "LTV_completed_point_estimate": 37157.00165303868,
+          "amplitude_L1": 3.9525961811237983e-07,
+          "heldout_max_relative_error": 2.018055819801771e-06,
+          "max_retained_eigenpair_residual": 1.173889206306392e-06,
+          "slow_mode_eigenpair_residual": 6.231597181110303e-15,
+          "tau": 172448484.73699763
+        },
+        "GRID": {
+          "LTV_completed_point_estimate": 39320.56183421635,
+          "amplitude_L1": 1.9197304305186414e-07,
+          "heldout_max_relative_error": 7.587022364447499e-05,
+          "max_retained_eigenpair_residual": 1.684008987829383e-06,
+          "slow_mode_eigenpair_residual": 6.691320716104606e-15,
+          "tau": 377223873.07341135
+        }
+      },
+      "slow_tau_relative_spread_vs_BASE": 1.1874615468914624,
+      "subdominant_tail_envelope_fraction_max": 3.5790609954633526e-14
+    },
+    "P2": {
+      "completed_LTV_relative_spread_vs_BASE": 0.021332523689707585,
+      "heldout_pass": true,
+      "memory_closed": false,
+      "reason": "slow-mode tau spread exceeds 5% across BASE/GRID/DOMAIN despite completed LTV spread within 5%",
+      "required_grids": {
+        "BASE": {
+          "LTV_completed_point_estimate": 8588.356434711775,
+          "amplitude_L1": 0.001130153340082319,
+          "heldout_max_relative_error": 9.809518667529355e-07,
+          "max_retained_eigenpair_residual": 0.0005504752861243999,
+          "slow_mode_eigenpair_residual": 4.682867239842712e-15,
+          "tau": 15045.54784344259
+        },
+        "DOMAIN": {
+          "LTV_completed_point_estimate": 8588.34399188954,
+          "amplitude_L1": 0.001130153340082943,
+          "heldout_max_relative_error": 1.7005602678325127e-06,
+          "max_retained_eigenpair_residual": 0.0018631300667847962,
+          "slow_mode_eigenpair_residual": 6.65474113562392e-15,
+          "tau": 15045.547844447932
+        },
+        "GRID": {
+          "LTV_completed_point_estimate": 8771.555308988682,
+          "amplitude_L1": 0.0010901775233344432,
+          "heldout_max_relative_error": 9.192826086898107e-08,
+          "max_retained_eigenpair_residual": 0.0019396885141442434,
+          "slow_mode_eigenpair_residual": 6.029675090090648e-15,
+          "tau": 15859.187178507433
+        }
+      },
+      "slow_tau_relative_spread_vs_BASE": 0.05407841200142523,
+      "subdominant_tail_envelope_fraction_max": 5.244351245157961e-123
+    }
+  },
+  "milestone": "PPML-SHUFFLE-LAST2-DPSGD-MEMFRONT2",
+  "reason": "The required independent memory closure gate did not pass for either primary line. The protocol blocks final-state scaling, matched allocation comparisons, k robustness, and initialization analysis.",
+  "secondary_lines": [
+    {
+      "LTV_completed_point_estimate": 1590.3184154709356,
+      "dominant_tau_estimate": 894.0602906735616,
+      "eta": 0.1,
+      "frontier_status": "NOT_RUN",
+      "grid": "BASE",
+      "heldout_max_relative_error": 1.0,
+      "line": "R1",
+      "memory_closure_status": "UNVALIDATED",
+      "slow_mode_amplitude_L1": 0.004462884673906601,
+      "z": 8.0
+    },
+    {
+      "LTV_completed_point_estimate": 117744.79186880164,
+      "dominant_tau_estimate": 1263813561770.3704,
+      "eta": 0.05,
+      "frontier_status": "NOT_RUN",
+      "grid": "BASE",
+      "heldout_max_relative_error": 32.70916129333289,
+      "line": "R2",
+      "memory_closure_status": "UNVALIDATED",
+      "slow_mode_amplitude_L1": 8.834315583502631e-11,
+      "z": 2.0
+    },
+    {
+      "LTV_completed_point_estimate": 37660.61728847019,
+      "dominant_tau_estimate": 588400.5119219705,
+      "eta": 0.05,
+      "frontier_status": "NOT_RUN",
+      "grid": "BASE",
+      "heldout_max_relative_error": 3.4605462894602487e-06,
+      "line": "R3",
+      "memory_closure_status": "EXPLORATORY_ONLY_NO_CROSS_GRID_CHECK",
+      "slow_mode_amplitude_L1": 5.669603069050339e-05,
+      "z": 4.0
+    },
+    {
+      "LTV_completed_point_estimate": 10044.091470533354,
+      "dominant_tau_estimate": 216465.344396836,
+      "eta": 0.2,
+      "frontier_status": "NOT_RUN",
+      "grid": "BASE",
+      "heldout_max_relative_error": 9.57068514876313e-07,
+      "line": "R4",
+      "memory_closure_status": "EXPLORATORY_ONLY_NO_CROSS_GRID_CHECK",
+      "slow_mode_amplitude_L1": 0.00016418729784809484,
+      "z": 2.0
+    },
+    {
+      "LTV_completed_point_estimate": 1736.3360801311514,
+      "dominant_tau_estimate": 1320.7592087358992,
+      "eta": 0.2,
+      "frontier_status": "NOT_RUN",
+      "grid": "BASE",
+      "heldout_max_relative_error": 0.9999999999989683,
+      "line": "R5",
+      "memory_closure_status": "UNVALIDATED",
+      "slow_mode_amplitude_L1": 0.006186971134081076,
+      "z": 4.0
+    }
+  ],
+  "triggered_adaptive_extensions": {
+    "P1": "GRID2 triggered by cross-grid spectral sensitivity",
+    "P2": "GRID2 triggered by cross-grid tau stability check"
+  }
+}

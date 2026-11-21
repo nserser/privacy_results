@@ -1,0 +1,1270 @@
+{
+  "expected_counts": {
+    "feldman_shenfeld": 40,
+    "final_state": 32,
+    "finite_memory": 56,
+    "initialization": 9,
+    "k_robustness": 6
+  },
+  "frozen_spec_date": "2026-11-21",
+  "gpu_requested": false,
+  "job_id_rule": "first 20 hex chars of SHA256(canonical sorted JSON configuration)",
+  "jobs": [
+    {
+      "M": 256,
+      "grid": "BASE",
+      "id": "76a10c0f04693989ec59",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 256,
+      "grid": "GRID",
+      "id": "ab09622ec3fa409b5084",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 256,
+      "grid": "GRID2",
+      "id": "463198a191271e6d2ddf",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 256,
+      "grid": "DOMAIN",
+      "id": "ee7cb12d4ca46aab7b0f",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 512,
+      "grid": "BASE",
+      "id": "f89372807abff476a59e",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 512,
+      "grid": "GRID",
+      "id": "deb187e0d37db6a34aeb",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 512,
+      "grid": "GRID2",
+      "id": "2d752e10aecd7b77e0e0",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 512,
+      "grid": "DOMAIN",
+      "id": "005de1079cd3b8963c3f",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 1024,
+      "grid": "BASE",
+      "id": "f31dd28c62686e65eda2",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 1024,
+      "grid": "GRID",
+      "id": "5329fe3d3a85210ae7d2",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 1024,
+      "grid": "GRID2",
+      "id": "370063c6e0444090dee0",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 1024,
+      "grid": "DOMAIN",
+      "id": "62b74079b463730f8f32",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 2048,
+      "grid": "BASE",
+      "id": "7d30405a69733237862b",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 2048,
+      "grid": "GRID",
+      "id": "2c738073192e77c97266",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 2048,
+      "grid": "GRID2",
+      "id": "548aa5fd1ca0e658cd9b",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 2048,
+      "grid": "DOMAIN",
+      "id": "a5d3ed24f6807fc4e8cb",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 4096,
+      "grid": "BASE",
+      "id": "35278262f8a200664e1a",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 4096,
+      "grid": "GRID",
+      "id": "27c4429f3fe579c0dc81",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 4096,
+      "grid": "GRID2",
+      "id": "6d5c08f67f475738f1aa",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 4096,
+      "grid": "DOMAIN",
+      "id": "f18bb4b43dfb1ed5ce45",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 8192,
+      "grid": "BASE",
+      "id": "edfb28887a053b96f5ca",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 8192,
+      "grid": "GRID",
+      "id": "d03eb9c7b129bb8d0937",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 8192,
+      "grid": "GRID2",
+      "id": "0d6b34bf44dc6abafa49",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 8192,
+      "grid": "DOMAIN",
+      "id": "0317aea5e8a5537d8601",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 16384,
+      "grid": "BASE",
+      "id": "bc84b6d0cfe249aa093b",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 16384,
+      "grid": "GRID",
+      "id": "9540d9698670103b469c",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 16384,
+      "grid": "GRID2",
+      "id": "49ebaa42a74f086991ea",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 16384,
+      "grid": "DOMAIN",
+      "id": "e8a8d20bb12fe385416f",
+      "line": "P1",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 4096,
+      "grid": "BASE",
+      "id": "ca035c432fa4d7a62c41",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 4096,
+      "grid": "GRID",
+      "id": "82458300be26d4107b2c",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 4096,
+      "grid": "GRID2",
+      "id": "4750c7ebce90dfa87e75",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 4096,
+      "grid": "DOMAIN",
+      "id": "58a1e7ce6aecacc4ffd2",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 8192,
+      "grid": "BASE",
+      "id": "d718bf6d53de2777b4cb",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 8192,
+      "grid": "GRID",
+      "id": "8c18bab900058726d656",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 8192,
+      "grid": "GRID2",
+      "id": "3e827ddbdc4c3145bdf5",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 8192,
+      "grid": "DOMAIN",
+      "id": "e520b6ef9a707ec248d0",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 16384,
+      "grid": "BASE",
+      "id": "26d1bc5a06dbaf57d8e8",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 16384,
+      "grid": "GRID",
+      "id": "a0693db1fc77c9fde432",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 16384,
+      "grid": "GRID2",
+      "id": "de6197f1908f428355fa",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 16384,
+      "grid": "DOMAIN",
+      "id": "77fb232654edc458766d",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 32768,
+      "grid": "BASE",
+      "id": "090ce943952fa61d0a41",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 32768,
+      "grid": "GRID",
+      "id": "362abbf407cb5ec9c857",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 32768,
+      "grid": "GRID2",
+      "id": "80611fdf0366615b128a",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 32768,
+      "grid": "DOMAIN",
+      "id": "e4fa83586aa01d1262fb",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 65536,
+      "grid": "BASE",
+      "id": "2d5ab97a842c31e4ee6c",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 65536,
+      "grid": "GRID",
+      "id": "88a8c1c0351f266a964f",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 65536,
+      "grid": "GRID2",
+      "id": "67dfb201821b3b843513",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 65536,
+      "grid": "DOMAIN",
+      "id": "8b2e47e95c6307ca93a7",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 131072,
+      "grid": "BASE",
+      "id": "c6dce9fe3ffd22d91d16",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 131072,
+      "grid": "GRID",
+      "id": "119429fbf1516af0b54c",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 131072,
+      "grid": "GRID2",
+      "id": "4b68da3bfa75035e6886",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 131072,
+      "grid": "DOMAIN",
+      "id": "1b98fcfd96f858f90488",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 262144,
+      "grid": "BASE",
+      "id": "b664ae10a983794cf760",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 262144,
+      "grid": "GRID",
+      "id": "c01c71df12c27aa87e81",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 262144,
+      "grid": "GRID2",
+      "id": "63e72112908f701f676f",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 262144,
+      "grid": "DOMAIN",
+      "id": "6f21d846263dd95f8452",
+      "line": "P2",
+      "stage": "FINITE_MEMORY"
+    },
+    {
+      "M": 256,
+      "b": 1,
+      "grid": "BASE",
+      "id": "284f185c454d2ab78580",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 512,
+      "b": 1,
+      "grid": "BASE",
+      "id": "088a20f16d7d77d2b199",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "grid": "BASE",
+      "id": "4618265ce6dbcf693551",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 2048,
+      "b": 1,
+      "grid": "BASE",
+      "id": "734b469f3bccfdedf6f2",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "grid": "BASE",
+      "id": "0ad40623927778b45597",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 8192,
+      "b": 1,
+      "grid": "BASE",
+      "id": "1d81500d733370f2fd54",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 16384,
+      "b": 1,
+      "grid": "BASE",
+      "id": "df8ef24c1f0907dc4a20",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "grid": "BASE",
+      "id": "c87298ab31fd79e8f6f0",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 8192,
+      "b": 1,
+      "grid": "BASE",
+      "id": "4353607f0dad98453044",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 16384,
+      "b": 1,
+      "grid": "BASE",
+      "id": "58fed258155116bad1f1",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 32768,
+      "b": 1,
+      "grid": "BASE",
+      "id": "58031406db39058deb68",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 65536,
+      "b": 1,
+      "grid": "BASE",
+      "id": "cfb573703a6065de9f72",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 131072,
+      "b": 1,
+      "grid": "BASE",
+      "id": "1b401ce241fb2581040e",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 262144,
+      "b": 1,
+      "grid": "BASE",
+      "id": "ea1a0cffd41c6e7b9de6",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "grid": "GRID",
+      "id": "4219e8b695e3c0e78b43",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "grid": "GRID",
+      "id": "cd2fcecbc76614ec88f4",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 16384,
+      "b": 1,
+      "grid": "GRID",
+      "id": "12a24ef73e1edb4e0748",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "grid": "GRID2",
+      "id": "99e6e6a6077c1e0d28f2",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "grid": "GRID2",
+      "id": "0fcec390eec03da3ebc7",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 16384,
+      "b": 1,
+      "grid": "GRID2",
+      "id": "f9d9dd0fcdf41ab955f5",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "grid": "DOMAIN",
+      "id": "fea3c50832e745d0a997",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "grid": "DOMAIN",
+      "id": "c273897c400a91d47eb8",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 16384,
+      "b": 1,
+      "grid": "DOMAIN",
+      "id": "b5a11482e9064dc6c652",
+      "k": 2,
+      "line": "P1",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 8192,
+      "b": 1,
+      "grid": "GRID",
+      "id": "46910f8f6365e54c5e5b",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 32768,
+      "b": 1,
+      "grid": "GRID",
+      "id": "584f148fb5f9066db680",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 65536,
+      "b": 1,
+      "grid": "GRID",
+      "id": "62ec6a1e47280026d4a7",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 8192,
+      "b": 1,
+      "grid": "GRID2",
+      "id": "c4e0f9cb0c4de0c31eb8",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 32768,
+      "b": 1,
+      "grid": "GRID2",
+      "id": "1fa1bd3851a34d03e2ae",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 65536,
+      "b": 1,
+      "grid": "GRID2",
+      "id": "20f83fab92337b4a15ba",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 8192,
+      "b": 1,
+      "grid": "DOMAIN",
+      "id": "500fc137848fa87e9146",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 32768,
+      "b": 1,
+      "grid": "DOMAIN",
+      "id": "890278e4418c9dcfd9a3",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 65536,
+      "b": 1,
+      "grid": "DOMAIN",
+      "id": "8440a5dfb3fca8513b1f",
+      "k": 2,
+      "line": "P2",
+      "stage": "FINAL_STATE"
+    },
+    {
+      "M": 256,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "f22e16eeea134c7cce32",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 256,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "0222f630e918cf2e731e",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 512,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "a4ea923bc0bec5191cf3",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 512,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "a7dce047d8780a07bd22",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "544c496267c37e706fd6",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "ed6018143f01918f1f00",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 2048,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "ff02f7db6cfbe684b6f2",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 2048,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "13e0a9ae534bf6c05dc3",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "ac13f842eb54e0e051a3",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "2bda0b35d2232a657212",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 8192,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "d17b8d91a1f3dec4b4c9",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 8192,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "70d177e1c30aea532016",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 16384,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "9c2e12e1ed6885f41bed",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 16384,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "16060da57eb0ec4f11cc",
+      "k": 2,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "003ed53983135912c568",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "cf7ead0fa9f468ccb5e8",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 8192,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "981cd850465383d3e66f",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 8192,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "5b0b887d849c1b4150e8",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 16384,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "332f2825b124bfbb33e4",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 16384,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "97ac86684eb5a5c9ab2a",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 32768,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "ed7cae5266bfa4690b21",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 32768,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "7bab6ddaf3d8a92ff42c",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 65536,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "33a7a8eb7bf933788d76",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 65536,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "5c67b24ceee9cf1fa041",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 131072,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "020a57bf623fd19198f2",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 131072,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "59140a7df2fa995d49fb",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 262144,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "16ad365051a5546e199d",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 262144,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "f3677d8eff37c1f08c15",
+      "k": 2,
+      "line": "P2",
+      "stage": "FS",
+      "z": 4.0
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "c7c879364b0a10e90c72",
+      "k": 1,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "fa021c352a86e14afd1c",
+      "k": 1,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 2048,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "4eee3bc3229239fb8cfd",
+      "k": 1,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 2048,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "4fc13daee5fb302a1156",
+      "k": 1,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "ddafa06423a87eb15f88",
+      "k": 1,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "2bba9213a859161117e9",
+      "k": 1,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "b9d3c1acdd169f78fcc5",
+      "k": 4,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "1b1f46b7be460ee3e87d",
+      "k": 4,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 2048,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "82f925b53ef9c8a60bc6",
+      "k": 4,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 2048,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "e82671d87285e6bfaead",
+      "k": 4,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "delta": 0.001,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "e0eda00e0e5cf4f6e272",
+      "k": 4,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "delta": 1e-05,
+      "evidence_label": "EXTERNAL_ACCOUNTANT",
+      "id": "28d96c7cc5a8a484da58",
+      "k": 4,
+      "line": "P1",
+      "stage": "FS",
+      "z": 2.0
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "grid": "BASE",
+      "id": "ef1ce96436059b3797f8",
+      "k": 1,
+      "line": "P1",
+      "stage": "K_ROBUSTNESS"
+    },
+    {
+      "M": 2048,
+      "b": 1,
+      "grid": "BASE",
+      "id": "ad48988322348712d7ef",
+      "k": 1,
+      "line": "P1",
+      "stage": "K_ROBUSTNESS"
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "grid": "BASE",
+      "id": "e9c1b8e23a4ff7e53a07",
+      "k": 1,
+      "line": "P1",
+      "stage": "K_ROBUSTNESS"
+    },
+    {
+      "M": 1024,
+      "b": 1,
+      "grid": "BASE",
+      "id": "a57e5a560b6d5a5d5e13",
+      "k": 4,
+      "line": "P1",
+      "stage": "K_ROBUSTNESS"
+    },
+    {
+      "M": 2048,
+      "b": 1,
+      "grid": "BASE",
+      "id": "0237ef2da2999fa3ab4f",
+      "k": 4,
+      "line": "P1",
+      "stage": "K_ROBUSTNESS"
+    },
+    {
+      "M": 4096,
+      "b": 1,
+      "grid": "BASE",
+      "id": "d31f0248319e89c7224d",
+      "k": 4,
+      "line": "P1",
+      "stage": "K_ROBUSTNESS"
+    },
+    {
+      "M": 1024,
+      "grid": "BASE",
+      "id": "9170dca1af965a58ad00",
+      "initialization": "continuous_stationary",
+      "k": 2,
+      "line": "P1",
+      "stage": "INITIALIZATION"
+    },
+    {
+      "M": 1024,
+      "grid": "BASE",
+      "id": "df10b28a2c47c356a4c4",
+      "initialization": "well_plus",
+      "k": 2,
+      "line": "P1",
+      "stage": "INITIALIZATION"
+    },
+    {
+      "M": 1024,
+      "grid": "BASE",
+      "id": "8a1736172859c4f0b819",
+      "initialization": "well_minus",
+      "k": 2,
+      "line": "P1",
+      "stage": "INITIALIZATION"
+    },
+    {
+      "M": 4096,
+      "grid": "BASE",
+      "id": "2d4c8241e7e99e73c4c5",
+      "initialization": "continuous_stationary",
+      "k": 2,
+      "line": "P1",
+      "stage": "INITIALIZATION"
+    },
+    {
+      "M": 4096,
+      "grid": "BASE",
+      "id": "a0932ce60b770c63aece",
+      "initialization": "well_plus",
+      "k": 2,
+      "line": "P1",
+      "stage": "INITIALIZATION"
+    },
+    {
+      "M": 4096,
+      "grid": "BASE",
+      "id": "277acc6a6f4e3f9e7b84",
+      "initialization": "well_minus",
+      "k": 2,
+      "line": "P1",
+      "stage": "INITIALIZATION"
+    },
+    {
+      "M": 16384,
+      "grid": "BASE",
+      "id": "c1878963b6081a9aeb7d",
+      "initialization": "continuous_stationary",
+      "k": 2,
+      "line": "P1",
+      "stage": "INITIALIZATION"
+    },
+    {
+      "M": 16384,
+      "grid": "BASE",
+      "id": "3289274edfdf20e55f86",
+      "initialization": "well_plus",
+      "k": 2,
+      "line": "P1",
+      "stage": "INITIALIZATION"
+    },
+    {
+      "M": 16384,
+      "grid": "BASE",
+      "id": "0edc55dda9ca5488488f",
+      "initialization": "well_minus",
+      "k": 2,
+      "line": "P1",
+      "stage": "INITIALIZATION"
+    }
+  ],
+  "milestone": "PPML-SHUFFLE-LAST2-DPSGD-FINMEM1"
+}

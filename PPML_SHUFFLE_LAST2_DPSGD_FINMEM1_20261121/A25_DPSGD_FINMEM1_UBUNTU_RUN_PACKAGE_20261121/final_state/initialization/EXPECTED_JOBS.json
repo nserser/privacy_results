@@ -1,0 +1,38 @@
+[
+  {
+    "M": 1024,
+    "initialization": "continuous_stationary"
+  },
+  {
+    "M": 1024,
+    "initialization": "well_plus"
+  },
+  {
+    "M": 1024,
+    "initialization": "well_minus"
+  },
+  {
+    "M": 4096,
+    "initialization": "continuous_stationary"
+  },
+  {
+    "M": 4096,
+    "initialization": "well_plus"
+  },
+  {
+    "M": 4096,
+    "initialization": "well_minus"
+  },
+  {
+    "M": 16384,
+    "initialization": "continuous_stationary"
+  },
+  {
+    "M": 16384,
+    "initialization": "well_plus"
+  },
+  {
+    "M": 16384,
+    "initialization": "well_minus"
+  }
+]
