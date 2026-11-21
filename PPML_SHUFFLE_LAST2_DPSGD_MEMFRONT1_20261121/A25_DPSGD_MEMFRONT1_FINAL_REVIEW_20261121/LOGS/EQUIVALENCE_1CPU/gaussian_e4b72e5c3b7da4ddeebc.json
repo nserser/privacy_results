@@ -1,0 +1,38 @@
+{
+  "config": {
+    "M": 16,
+    "b": 1,
+    "k": 2,
+    "mu": 0.25,
+    "rho": 0.5,
+    "series_tol": 1e-13,
+    "stage": "gaussian"
+  },
+  "diagnostics": {
+    "b1_transcript_abs_error": 2.220446049250313e-16,
+    "last_term": 8.099453984449322e-19,
+    "scalar_tail_bound": 1.4876988529977098e-14,
+    "series_order": 9,
+    "xmax": 0.18750000004365575
+  },
+  "elapsed_s": 0.0011854171752929688,
+  "end_time": 1795264004.688105,
+  "experiment_id": "e4b72e5c3b7da4ddeebc",
+  "family": "gaussian",
+  "host": "slurmctl.cyber-isx.lan",
+  "metrics": {
+    "collision_pair_expectation": 0.0,
+    "final_chi2": 0.00296936536845558,
+    "final_d2": 0.0029649655108146696,
+    "gap_chi2": 5.441660260037905,
+    "gap_d2": 5.406174853719585,
+    "l_priv": 2.9999084486625875,
+    "transcript_chi2": 0.01615827752305754,
+    "transcript_d2": 0.01602912198671211
+  },
+  "pid": 531182,
+  "python": "3.10.12",
+  "start_time": 1795264004.6869197,
+  "status": "OK",
+  "warnings": []
+}

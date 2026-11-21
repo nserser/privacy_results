@@ -1,0 +1,9 @@
+{
+  "cpu_count_visible": 8,
+  "gpu_used": false,
+  "input_archive_sha256": "f90159a9ce91e4b4b1078d18d058ece06d16d402e34d541410d323be5433a71c",
+  "memory_workers": 7,
+  "pinned_feldman_shenfeld_commit": "fde83c45bf12c4f7821832c7d5d2ae2841fc0910",
+  "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]"
+}

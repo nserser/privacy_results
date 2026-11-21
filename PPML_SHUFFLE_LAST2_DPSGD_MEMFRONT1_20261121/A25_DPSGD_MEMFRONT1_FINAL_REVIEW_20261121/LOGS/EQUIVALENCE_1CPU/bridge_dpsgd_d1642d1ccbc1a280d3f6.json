@@ -1,0 +1,143 @@
+{
+  "config": {
+    "A": 0.55,
+    "B": 0.05,
+    "M": 16,
+    "b": 1,
+    "cc_method": "be",
+    "cc_substeps": 4,
+    "delta_targets": [
+      0.001
+    ],
+    "drop_tol": 0.0,
+    "epsilon_grid": [
+      0.0,
+      0.5
+    ],
+    "eta": 0.2,
+    "k": 1,
+    "m": 0.5,
+    "mass_loss_tol": 1e-08,
+    "mass_tol": 1e-07,
+    "noise_multiplier": 2.0,
+    "nx": 601,
+    "stage": "bridges",
+    "tail_sigma": 40.0,
+    "theory_slack": 0.05,
+    "theory_theta": 1.0,
+    "x_max": 6.0
+  },
+  "diagnostics": {
+    "absent_edge_mass_5": 0.0,
+    "absent_mass_error": 5.551115123125783e-16,
+    "chi2_finite": true,
+    "escaped_absent": 1.3274763509073779e-15,
+    "escaped_present": 1.3199635531356815e-15,
+    "present_edge_mass_5": 0.0,
+    "present_mass_error": 4.440892098500626e-16,
+    "reference_stationarity": {
+      "0": {
+        "max_abs_column_sum": 4.547473508864641e-13,
+        "min_offdiag": 2421.9331493851455
+      },
+      "analytic_vs_numerical_stationary_l1": 5.465716385694287e-06,
+      "method": "be",
+      "stationarity_l1_one_interval": 5.663221357769032e-14,
+      "stationary_edge_mass_5": 5.3855800714715305e-06,
+      "substeps": 8
+    },
+    "transition": {
+      "0": {
+        "max_column_probability_error": 4.440892098500626e-16,
+        "max_one_step_domain_escape_probability": 1.677066925497219e-225,
+        "max_one_step_stencil_loss_probability": 6.661338147750939e-16,
+        "max_one_step_total_lost_probability": 6.661338147750939e-16,
+        "noise_std_over_dx": 1.0000000000000215,
+        "tail_sigma": 40.0
+      },
+      "1": {
+        "max_column_probability_error": 4.440892098500626e-16,
+        "max_one_step_domain_escape_probability": 1.3607588251076183e-218,
+        "max_one_step_stencil_loss_probability": 6.661338147750939e-16,
+        "max_one_step_total_lost_probability": 6.661338147750939e-16,
+        "noise_std_over_dx": 1.0000000000000215,
+        "tail_sigma": 40.0
+      }
+    }
+  },
+  "elapsed_s": 0.140838623046875,
+  "end_time": 1795264005.255707,
+  "experiment_id": "d1642d1ccbc1a280d3f6",
+  "family": "bridge_dpsgd",
+  "host": "slurmctl.cyber-isx.lan",
+  "metrics": {
+    "epsilon_at_delta": {
+      "0.001": 0.0509048046296226
+    },
+    "epsilon_delta_1e3": 0.0509048046296226,
+    "epsilon_delta_1e5": NaN,
+    "epsilon_upper_at_delta": {
+      "0.001": 0.05090480462975212
+    },
+    "epsilon_upper_delta_1e3": 0.05090480462975212,
+    "epsilon_upper_delta_1e5": NaN,
+    "final_chi2_forward": 0.0006114580190464424,
+    "final_chi2_reverse": 0.0006098802986072212,
+    "final_chi2_symmetric_max": 0.0006114580190464424,
+    "final_d2_forward": 0.0006112711547611447,
+    "final_d2_reverse": 0.0006096943971991372,
+    "gap_chi2": 29.031573697679246,
+    "gap_d2": 28.785701894793352,
+    "mu": 0.5,
+    "noise_multiplier": 2.0,
+    "privacy_profile": [
+      {
+        "delta_forward": 0.006922587267515861,
+        "delta_reverse": 0.006922587267515904,
+        "delta_symmetric": 0.006922587267515904,
+        "epsilon": 0.0
+      },
+      {
+        "delta_forward": 1.2251545832864303e-12,
+        "delta_reverse": 9.308776506145691e-17,
+        "delta_symmetric": 1.2251545832864303e-12,
+        "epsilon": 0.5
+      }
+    ],
+    "privacy_profile_upper": [
+      {
+        "delta_forward": 0.006922587267515861,
+        "delta_forward_upper": 0.006922587267520157,
+        "delta_reverse": 0.006922587267515904,
+        "delta_reverse_upper": 0.0069225872675202004,
+        "delta_symmetric": 0.006922587267515904,
+        "delta_symmetric_upper": 0.0069225872675202004,
+        "epsilon": 0.0,
+        "tau_p": 2.1958378964213003e-15,
+        "tau_q": 2.0998411895021775e-15
+      },
+      {
+        "delta_forward": 1.2251545832864303e-12,
+        "delta_forward_upper": 1.230812474017076e-12,
+        "delta_reverse": 9.308776506145691e-17,
+        "delta_reverse_upper": 5.813253601402857e-15,
+        "delta_symmetric": 1.2251545832864303e-12,
+        "delta_symmetric_upper": 1.230812474017076e-12,
+        "epsilon": 0.5,
+        "tau_p": 2.1958378964213003e-15,
+        "tau_q": 2.0998411895021775e-15
+      }
+    ],
+    "transcript_chi2": 0.017751588542983754,
+    "transcript_d2": 0.017595869237840404,
+    "tv_defect_absent": 2.0998411895021775e-15,
+    "tv_defect_present": 2.1958378964213003e-15,
+    "tv_symmetric": 0.006922587267515904,
+    "tv_symmetric_upper": 0.0069225872675202004
+  },
+  "pid": 531182,
+  "python": "3.10.12",
+  "start_time": 1795264005.1148684,
+  "status": "OK",
+  "warnings": []
+}

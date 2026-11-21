@@ -1,0 +1,12 @@
+{
+  "archive_manifest_files": 679,
+  "archive_manifest_status": "PASS",
+  "canonical_review_archive_sha256": "f90159a9ce91e4b4b1078d18d058ece06d16d402e34d541410d323be5433a71c",
+  "code_hash_before_memfront": "recorded in source provenance",
+  "full_broad_pytest": "959 passed before one external vendored PLD CTD/profile assertion differed by approximately 1e-16; frozen THEORYCOMPLY core tests passed",
+  "one_vs_multi_cpu_equivalence": "PASS (8 records, exact)",
+  "pinned_api_probe": "PASS; prior epsilon interval anchor reproduced",
+  "theorycomply_core_tests": "22 passed (rerun after orchestration additions)",
+  "theorycomply_tests": "22 passed",
+  "worker_equivalence": "PASS exact scientific equivalence, 8 records, 1 vs 4 workers (rerun)"
+}

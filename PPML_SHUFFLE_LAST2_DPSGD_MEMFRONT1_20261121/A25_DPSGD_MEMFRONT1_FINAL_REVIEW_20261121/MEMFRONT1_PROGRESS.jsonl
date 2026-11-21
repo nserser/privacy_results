@@ -1,0 +1,7 @@
+{"event":"M0_package_integrity","status":"PASS","files":679,"p1b_style_sha256":"f90159a9ce91e4b4b1078d18d058ece06d16d402e34d541410d323be5433a71c"}
+{"config": {"A": 0.55, "B": 0.05, "drop_tol": 0.0, "eta": 0.1, "grid_label": "BASE", "initial_R": 64, "line": "P1", "m": 0.5, "max_R": 64, "nx": 1201, "stationarity_l1_tol": 1e-10, "stationary_tol": 1e-12, "tail_sigma": 40.0, "x_max": 6.0, "z": 2.0}, "event": "memory_job_start", "id": "f79987aa30aed18f0e82", "pid": 530922}
+{"config": {"A": 0.55, "B": 0.05, "drop_tol": 0.0, "eta": 0.1, "grid_label": "BASE", "initial_R": 64, "line": "P1", "m": 0.5, "max_R": 64, "nx": 1201, "stationarity_l1_tol": 1e-10, "stationary_tol": 1e-12, "tail_sigma": 40.0, "x_max": 6.0, "z": 2.0}, "event": "memory_job_start", "id": "f79987aa30aed18f0e82", "pid": 530933}
+{"L_TV": 62.974831641421495, "R": 64, "closed": false, "elapsed_s": 1.0480055809020996, "endpoint_ratio": 0.5416976998278396, "event": "memory_horizon_checkpoint", "id": "f79987aa30aed18f0e82", "tail_sum_frac": 0.2048642999976144, "tail_sumsq_frac": 0.1558038231462647}
+{"L_TV": 62.974831641421495, "R": 64, "elapsed_s": 1.0814650058746338, "event": "memory_job_complete", "id": "f79987aa30aed18f0e82", "status": "MEMORY_NOT_CLOSED"}
+{"event":"MEMFRONT1_M3_complete","memory_jobs":11,"workers":7,"decision":"REPAIR_MEMFRONT","P1":"MEMORY_CLOSED","P2":"MEMORY_NOT_CLOSED_BY_R16384","final_state_jobs":"BLOCKED"}
+{"event":"post_memfront_core_validation","theorycomply_tests":"22 passed","worker_equivalence":"exact 1-vs-4 CPU, 8 records"}

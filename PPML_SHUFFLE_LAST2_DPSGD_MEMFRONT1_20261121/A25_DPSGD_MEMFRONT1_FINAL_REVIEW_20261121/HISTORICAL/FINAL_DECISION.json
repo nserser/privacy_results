@@ -1,0 +1,39 @@
+{
+  "milestone": "PPML-SHUFFLE-LAST2-EMP1R2-THEORYCOMPLY",
+  "status": "STOP_REALISTIC_DP_SGD",
+  "input_archive_sha256": "cc9d8f11059b7e93e8f5e42d1bd8bde3491bfd0b5bedc9b6a7a185ab45f36ba0",
+  "expected_scientific_jobs": 336,
+  "completed_scientific_jobs": 336,
+  "failed_scientific_records": 0,
+  "implementation_verification": "PASS",
+  "unit_tests": "22/22 PASS",
+  "worker_equivalence": "EXACT",
+  "smoke_jobs": "81/81 PASS",
+  "feldman_shenfeld": {
+    "status": "PASS",
+    "queries": "144/144",
+    "repository_commit": "fde83c45bf12c4f7821832c7d5d2ae2841fc0910"
+  },
+  "scientific_gates": {
+    "continuous_theory_and_numerical": "PASS",
+    "dpsgd_numerical_convergence": "PASS",
+    "feldman_shenfeld_lower_bound": "PASS",
+    "preregistered_dpsgd_growth": "FAIL"
+  },
+  "required_dpsgd_lines": {
+    "k2_eta0.1_z2": {
+      "stored_tv_beta": -0.7518954549576842,
+      "tv_r2": 0.9739982614939404,
+      "transcript_beta": 1.003929199813359
+    },
+    "k2_eta0.1_z4": {
+      "stored_tv_beta": -0.5055631193976295,
+      "tv_r2": 0.9046895196454772,
+      "transcript_beta": 1.0008957458464658
+    }
+  },
+  "gpu_stage_run": false,
+  "independent_audit": "AUDIT_PASS 23/23",
+  "scientific_result_interpretation": "The continuous hidden-state scaling theory passed its frozen numerical and theoretical gates. The required practical DP-SGD bridge did not meet the frozen growing-gap criteria; realistic user-level DP-SGD ML is not authorized by this result.",
+  "scientific_configuration_changed": false
+}

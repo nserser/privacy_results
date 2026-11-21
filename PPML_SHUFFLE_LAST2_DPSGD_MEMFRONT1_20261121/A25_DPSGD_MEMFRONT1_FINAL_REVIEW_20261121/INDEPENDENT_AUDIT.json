@@ -1,0 +1,30 @@
+{
+  "P1_LTV_grid": [
+    221.504861853451,
+    220.30469684071684,
+    221.50486185473662
+  ],
+  "P1_variation": 0.005418233279293936,
+  "P2_LTV_grid": [
+    4384.42425681144,
+    4275.719454988016,
+    4384.424257048293
+  ],
+  "P2_variation": 0.02479340403506759,
+  "auditor": "memfront.independent_audit (separate code path)",
+  "checks": {
+    "P1_closure_all_conditions": true,
+    "P1_grid_variation_le_5pct": true,
+    "P2_L_change_exceeds_1pct": true,
+    "P2_adaptive_M_cap_insufficient": true,
+    "P2_grid_variation_le_5pct": true,
+    "P2_tail_endpoint_exceeds_1e-4": true,
+    "P2_unclosed_by_frozen_cap": true,
+    "all_11_memory_files": true,
+    "all_final_jobs_blocked": true,
+    "all_stationarity_residuals_le_1e-10": true,
+    "decision_is_repair": true,
+    "no_final_privacy_rows": true
+  },
+  "status": "PASS"
+}

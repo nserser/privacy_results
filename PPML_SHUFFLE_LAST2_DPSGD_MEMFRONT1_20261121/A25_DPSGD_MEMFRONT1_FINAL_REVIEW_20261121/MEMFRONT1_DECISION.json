@@ -1,0 +1,123 @@
+{
+  "asymptotic_fit": {
+    "reason": "P2 discrete privacy-memory response not closed by R=16384",
+    "status": "NOT_RUN_GATE_BLOCKED"
+  },
+  "cpu_workers_memory_stage": 7,
+  "decision": "REPAIR_MEMFRONT",
+  "failed_or_inconclusive_gates": [
+    "P2_MEMORY_CLOSURE_FAILED_BY_R16384",
+    "P2_HAS_ZERO_M_POINTS_WITH_M_OVER_L_TV_GE_4_BY_M_16384",
+    "FINAL_STATE_FIT_AND_MATCHED_BASELINE_NOT_RUN_BY_FAIL_CLOSED_GATE"
+  ],
+  "feldman_shenfeld": {
+    "reason": "No eligible final-state outputs; M5 blocked",
+    "status": "NOT_RUN_GATE_BLOCKED"
+  },
+  "final_report": "FINAL_MEMFRONT1_REPORT.md",
+  "final_state_runs_authorized": false,
+  "gpu_used": false,
+  "historical_P1B_result": "unchanged prior frozen evidence",
+  "historical_SCALECERT_decision": "STOP_REALISTIC_DP_SGD (preserved; not overwritten or reclassified)",
+  "independent_audit": "PASS",
+  "input_archive_sha256": "f90159a9ce91e4b4b1078d18d058ece06d16d402e34d541410d323be5433a71c",
+  "memory_closure": {
+    "P1": "MEMORY_CLOSED",
+    "P2": "MEMORY_NOT_CLOSED",
+    "primary_grid_variation": {
+      "P1": 0.005418233279293936,
+      "P2": 0.02479340403506759
+    },
+    "stationarity_max_residual": 9.974339746914186e-13
+  },
+  "numerical_certification": {
+    "final_state_convergence": "NOT_RUN_GATE_BLOCKED",
+    "memory_grid_variation_pass": {
+      "P1": true,
+      "P2": true
+    }
+  },
+  "practical_impact_class": {
+    "P1": "NOT_CLASSIFIED_FINAL_STATE_NOT_RUN",
+    "P2": "PRACTICAL_NONE_OR_UNRESOLVED_BY_R16384"
+  },
+  "primary_P1": {
+    "L_TV": 221.504861853451,
+    "R": 2048,
+    "adaptive": {
+      "adaptive_M": [],
+      "asymptotic_points_if_measured": [
+        1024,
+        2048,
+        4096
+      ],
+      "at_least_three_x_ge_4": true,
+      "cap_reached": false,
+      "initial_M": [
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024,
+        2048,
+        4096
+      ]
+    },
+    "eta": 0.1,
+    "grid_L_TV": {
+      "BASE": 221.504861853451,
+      "DOMAIN": 221.50486185473662,
+      "GRID": 220.30469684071684
+    },
+    "grid_relative_variation": 0.005418233279293936,
+    "k": 2,
+    "memory_status": "MEMORY_CLOSED",
+    "z": 2.0
+  },
+  "primary_P2": {
+    "L_TV": 4384.42425681144,
+    "R": 16384,
+    "adaptive": {
+      "adaptive_M": [
+        8192,
+        16384
+      ],
+      "asymptotic_points_if_measured": [],
+      "at_least_three_x_ge_4": false,
+      "cap_reached": true,
+      "initial_M": [
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024,
+        2048,
+        4096
+      ]
+    },
+    "endpoint_ratio": 0.015255090058093786,
+    "eta": 0.1,
+    "grid_L_TV": {
+      "BASE": 4384.42425681144,
+      "DOMAIN": 4384.424257048293,
+      "GRID": 4275.719454988016
+    },
+    "grid_relative_variation": 0.02479340403506759,
+    "k": 2,
+    "memory_status": "MEMORY_NOT_CLOSED",
+    "relative_L_change_vs_previous_horizon": 0.48707611024374964,
+    "z": 4.0
+  },
+  "triggered_adaptive_extensions": {
+    "P1": [],
+    "P2": [
+      8192,
+      16384
+    ]
+  },
+  "user_level_robustness": {
+    "status": "NOT_RUN_GATE_BLOCKED"
+  }
+}

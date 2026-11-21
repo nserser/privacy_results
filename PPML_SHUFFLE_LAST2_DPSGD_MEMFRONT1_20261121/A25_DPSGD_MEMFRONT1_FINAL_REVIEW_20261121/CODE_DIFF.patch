@@ -1,0 +1,9 @@
+The frozen THEORYCOMPLY implementation under SOURCES/src/scalecert is unchanged.
+The only production additions are the following new orchestration/audit files, copied verbatim under SOURCES/memfront/:
+  __init__.py
+  memory.py
+  run_memory_grid.py
+  finalize_memory_gate.py
+  plot_memory.py
+  independent_audit.py
+No change was made to the discrete kernel, hidden-support DP, privacy accounting, or Feldman-Shenfeld adapter.
