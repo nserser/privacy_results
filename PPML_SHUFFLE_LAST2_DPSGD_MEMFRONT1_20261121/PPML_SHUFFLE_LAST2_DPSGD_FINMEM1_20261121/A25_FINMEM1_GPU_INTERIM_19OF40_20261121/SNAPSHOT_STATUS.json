@@ -1,0 +1,26 @@
+{
+  "active_queries_at_snapshot": [
+    [
+      "P2",
+      16384,
+      0.001,
+      4.0,
+      2
+    ],
+    [
+      "P2",
+      32768,
+      0.001,
+      4.0,
+      2
+    ]
+  ],
+  "completed_queries": 19,
+  "expected_queries": 40,
+  "historical_cpu_results_modified": false,
+  "missing_query_count": 21,
+  "scientific_decision": "NOT MADE; this is an in-progress backend rerun",
+  "slurm_job_id": "930",
+  "slurm_state": "RUNNING",
+  "snapshot_utc": "2026-11-21T23:43:50.597203+00:00"
+}

@@ -1,0 +1,1 @@
+Python 3.10; NumPy 2.2.6; SciPy 1.15.3; cupy-cuda12x 14.2.0; NVIDIA RTX A5000; pinned PLD_accounting commit fde83c45bf12c4f7821832c7d5d2ae2841fc0910.
