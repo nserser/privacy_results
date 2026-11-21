@@ -1,0 +1,26 @@
+{
+  "core_tests": "22 passed",
+  "cpu_model": "QEMU Virtual CPU version 2.5+",
+  "equivalence": "exact 1-worker vs 4-worker; 8 records",
+  "feldman_shenfeld_runtime_lock": {
+    "branch": "MS-FFT-paper",
+    "commit": "fde83c45bf12c4f7821832c7d5d2ae2841fc0910",
+    "repository": "https://github.com/moshenfeld/PLD_accounting"
+  },
+  "gpu_requested": false,
+  "gpu_used": false,
+  "historical_MEMFRONT1_status": "REPAIR_MEMFRONT",
+  "historical_SCALECERT_status": "STOP_REALISTIC_DP_SGD",
+  "input_manifest_line_count": 126,
+  "input_sha256sums": "PASS",
+  "numpy": "2.2.6",
+  "platform": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "scipy": "1.15.3",
+  "slurm_job_id": null,
+  "source": "SOURCES/src/scalecert frozen files",
+  "source_git_commit": "5a53dda02a56d03b29bbe477efc9c10258c0ba28",
+  "status": "PASS",
+  "verified_at_utc": "2026-11-21T13:28:13Z",
+  "visible_cpus": 8
+}
