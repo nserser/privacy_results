@@ -1,0 +1,86 @@
+{
+  "adoption_status": "NOT_YET_QUALIFIED_FOR_SCIENTIFIC_FINALIZATION; full frozen job manifest and independent audit are still pending",
+  "all_operation_parity_M256": {
+    "bitwise_equal": true,
+    "calls": 80,
+    "max_abs": 0.0,
+    "max_l1": 0.0,
+    "max_mass_delta": 0.0
+  },
+  "atomic_scatter_prototype": {
+    "reason": "M=4096 mass-repair residual 3.028368e-15 exceeded configured 2.220e-15; no tolerance change",
+    "status": "REJECTED"
+  },
+  "cross_node_observation": {
+    "detail": "M=256 archived/login CPU bounds differed from GPU-node CPU/GPU by about 1e-6; same-node CPU/GPU matched exactly. Cross-node variation must be recorded/conservatively handled.",
+    "status": "OBSERVED"
+  },
+  "date_utc": "2026-11-21T23:39:10.751302+00:00",
+  "deterministic_gather_kernel": {
+    "accumulation": "CPU NumPy fallback Kahan order mirrored per output bin",
+    "cuda_fmad": false,
+    "status": "PROMISING"
+  },
+  "full_query_same_node_checks": [
+    {
+      "M": 256,
+      "cpu_gpu_epsilon_bounds_exact": true,
+      "cpu_seconds": 29.883334492333233,
+      "delta": 0.001,
+      "gpu_seconds": 0.8025644263252616,
+      "k": 2,
+      "speedup": 37.234,
+      "z": 2.0
+    },
+    {
+      "M": 1024,
+      "cpu_gpu_epsilon_bounds_exact": true,
+      "cpu_seconds": 81.99954716674984,
+      "delta": 1e-05,
+      "gpu_seconds": 1.2290459116920829,
+      "k": 2,
+      "speedup": 66.718,
+      "z": 2.0
+    }
+  ],
+  "in_progress_gpu_batch": {
+    "active_queries": [
+      [
+        "P2",
+        8192,
+        0.001,
+        4.0,
+        2
+      ],
+      [
+        "P2",
+        16384,
+        0.001,
+        4.0,
+        2
+      ]
+    ],
+    "completed": 17,
+    "expected": 40,
+    "gpu_model": "NVIDIA RTX A5000",
+    "historical_cpu_outputs_modified": false,
+    "missing": 23,
+    "slurm_job_id": "930"
+  },
+  "scope": "engineering investigation plus in-progress GPU backend rerun; no FINMEM1 scientific decision",
+  "synthetic_exact_comparisons": {
+    "max_observed_abs": 0.0,
+    "max_observed_l1": 0.0,
+    "max_observed_mass_delta": 0.0,
+    "sizes_tested": [
+      128,
+      512,
+      1024,
+      2048,
+      4096,
+      8192,
+      16869
+    ],
+    "status": "PASS"
+  }
+}
