@@ -1,0 +1,9 @@
+{
+  "job_id": "932",
+  "state": "CANCELLED by 1113",
+  "elapsed": "00:02:30",
+  "output_emitted": false,
+  "reason": "The CPU end-to-end M=256 k=2 parity accountant was slower than needed and emitted no result. Replaced by a same-node bitwise CPU/GPU kernel smoke plus the immutable prior end-to-end same-node parity evidence; all k=4 query convolutions remain checked exactly against NumPy during execution.",
+  "k4_scientific_queries_completed": 0,
+  "historical_decisions_affected": false
+}

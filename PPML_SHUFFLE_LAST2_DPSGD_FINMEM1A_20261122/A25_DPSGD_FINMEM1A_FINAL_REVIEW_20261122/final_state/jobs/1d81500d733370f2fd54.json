@@ -1,0 +1,130 @@
+{
+  "M": 8192,
+  "absent_escaped_mass": 7.502005450655345e-13,
+  "absent_latent_mass_error": -7.398754709365206e-13,
+  "absent_survived_mass": 0.9999999999999896,
+  "absent_total_mass_defect": 1.0436096431476471e-14,
+  "b": 1,
+  "chi2_forward": 3.0710302953955832e-06,
+  "chi2_reverse": 3.0704708170620994e-06,
+  "config": {
+    "A": 0.55,
+    "B": 0.05,
+    "M": 8192,
+    "b": 1,
+    "eta": 0.1,
+    "grid_label": "BASE",
+    "k": 2,
+    "line": "P1",
+    "m": 0.5,
+    "max_r": 4096,
+    "nmodes": 32,
+    "nx": 1201,
+    "tail_sigma": 40.0,
+    "tol": 1e-11,
+    "x_max": 6.0,
+    "z": 2.0
+  },
+  "elapsed_s": 9.312283515930176,
+  "epsilon": {
+    "0.001": {
+      "epsilon_conditional_grid": 0.0,
+      "epsilon_final_upper_with_mass_defect": 0.0
+    },
+    "1e-05": {
+      "epsilon_conditional_grid": 0.004119717177150584,
+      "epsilon_final_upper_with_mass_defect": 0.004119717186930938
+    }
+  },
+  "evidence_label": "DIRECT_FULL_GRID",
+  "grid": "BASE",
+  "id": "1d81500d733370f2fd54",
+  "k": 2,
+  "line": "P1",
+  "present_escaped_mass": 7.502774010463256e-13,
+  "present_latent_mass_error": -5.767495422974137e-13,
+  "present_survived_mass": 0.9999999999998264,
+  "present_total_mass_defect": 1.7363888105137448e-13,
+  "privacy_profile_grid": [
+    {
+      "delta_forward": 0.0006931446978784101,
+      "delta_forward_upper": 0.0006931446980624851,
+      "delta_reverse": 0.0006931446978785411,
+      "delta_reverse_upper": 0.0006931446980626161,
+      "delta_symmetric": 0.0006931446978785411,
+      "delta_symmetric_upper": 0.0006931446980626161,
+      "epsilon": 0.0,
+      "tau_p": 1.7363888105137448e-13,
+      "tau_q": 1.0436096431476471e-14
+    },
+    {
+      "delta_forward": 9.850571234123997e-167,
+      "delta_forward_upper": 1.8517255132567531e-13,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 2.023367380166522e-13,
+      "delta_symmetric": 9.850571234123997e-167,
+      "delta_symmetric_upper": 2.023367380166522e-13,
+      "epsilon": 0.1,
+      "tau_p": 1.7363888105137448e-13,
+      "tau_q": 1.0436096431476471e-14
+    },
+    {
+      "delta_forward": 1.8081288031512253e-256,
+      "delta_forward_upper": 1.8703909412039452e-13,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 2.3339283302666076e-13,
+      "delta_symmetric": 1.8081288031512253e-256,
+      "delta_symmetric_upper": 2.3339283302666076e-13,
+      "epsilon": 0.25,
+      "tau_p": 1.7363888105137448e-13,
+      "tau_q": 1.0436096431476471e-14
+    },
+    {
+      "delta_forward": 5e-324,
+      "delta_forward_upper": 1.9084509522102744e-13,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 2.96718213041447e-13,
+      "delta_symmetric": 5e-324,
+      "delta_symmetric_upper": 2.96718213041447e-13,
+      "epsilon": 0.5,
+      "tau_p": 1.7363888105137448e-13,
+      "tau_q": 1.0436096431476471e-14
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 2.0200713234110325e-13,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 4.824355115073894e-13,
+      "delta_symmetric": 0.0,
+      "delta_symmetric_upper": 4.824355115073894e-13,
+      "epsilon": 1.0,
+      "tau_p": 1.7363888105137448e-13,
+      "tau_q": 1.0436096431476471e-14
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 2.507517830374041e-13,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 1.2934635294756288e-12,
+      "delta_symmetric": 0.0,
+      "delta_symmetric_upper": 1.2934635294756288e-12,
+      "epsilon": 2.0,
+      "tau_p": 1.7363888105137448e-13,
+      "tau_q": 1.0436096431476471e-14
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 7.434304397774881e-13,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 9.490797775661706e-12,
+      "delta_symmetric": 0.0,
+      "delta_symmetric_upper": 9.490797775661706e-12,
+      "epsilon": 4.0,
+      "tau_p": 1.7363888105137448e-13,
+      "tau_q": 1.0436096431476471e-14
+    }
+  ],
+  "status": "OK",
+  "tv_symmetric_grid": 0.0006931446978784755,
+  "tv_symmetric_upper_mass_defect": 0.0006931446980625505
+}

@@ -1,0 +1,4 @@
+{"event": "k4_batch_start", "n_jobs": 3, "workers": 3, "gpu": false}
+{"event": "k4_job_complete", "done": 1, "total": 3, "M": 1024, "tv": 0.011084266936956718}
+{"event": "k4_job_complete", "done": 2, "total": 3, "M": 2048, "tv": 0.0055441662901769715}
+{"event": "k4_job_complete", "done": 3, "total": 3, "M": 4096, "tv": 0.0027723430557663247}

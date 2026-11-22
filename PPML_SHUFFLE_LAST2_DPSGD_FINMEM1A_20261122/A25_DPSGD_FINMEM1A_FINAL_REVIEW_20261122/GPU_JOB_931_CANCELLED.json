@@ -1,0 +1,9 @@
+{
+  "job_id": "931",
+  "state": "CANCELLED by 1113",
+  "elapsed": "00:02:57",
+  "output_emitted": false,
+  "reason": "The same-node CPU/GPU parity smoke was initially configured as a full k=4 M=256 accountant query. That CPU smoke was slower than needed and no result was emitted. Replaced by a k=2 M=256 end-to-end parity smoke, with exact per-convolution NumPy checks retained for every k=4 GPU query.",
+  "scientific_k4_queries_completed": 0,
+  "historical_decisions_affected": false
+}

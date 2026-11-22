@@ -1,0 +1,14 @@
+{
+  "elapsed_s": 11.051992416381836,
+  "eta": 0.1,
+  "grid": "GRID",
+  "id": "c4cdfc0fae88e2e66916",
+  "line": "P1",
+  "max_r": 16384,
+  "nx": 2401,
+  "overlap_max_abs_difference": 0.0,
+  "source_memfront2_id": "c4cdfc0fae88e2e66916",
+  "status": "PASS",
+  "x_max": 6.0,
+  "z": 2.0
+}

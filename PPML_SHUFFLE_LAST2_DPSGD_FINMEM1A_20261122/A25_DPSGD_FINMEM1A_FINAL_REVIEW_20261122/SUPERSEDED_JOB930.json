@@ -1,0 +1,11 @@
+{
+  "job_id": "930",
+  "job_name": "finmem1-fs-gpu",
+  "state": "CANCELLED by 1113",
+  "elapsed": "00:38:43",
+  "exit_code": "0:0",
+  "batch_state": "CANCELLED",
+  "python_step_state": "CANCELLED",
+  "relevance": "Superseded broad FINMEM1 GPU accountant sweep. Its partial outputs are not used as the FINMEM1A canonical P1 FS baseline.",
+  "canonical_p1_fs_baseline": "14 archived P1 k=2 outputs from the immutable 19/40 interim snapshot"
+}

@@ -1,0 +1,15 @@
+{
+  "cpu_model": "QEMU Virtual CPU version 2.5+",
+  "feldman_shenfeld_commit": "fde83c45bf12c4f7821832c7d5d2ae2841fc0910",
+  "gpu_requested_for_final_state": false,
+  "gpu_used_for_conditional_k4_fs": true,
+  "gpu_used_for_final_state": false,
+  "hostname": "slurmctl.cyber-isx.lan",
+  "numpy": "2.2.6",
+  "os": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "scipy": "1.15.3",
+  "slurm_job_id": null,
+  "timestamp_utc": "2026-11-22T00:40:41Z",
+  "visible_cpus": 8
+}

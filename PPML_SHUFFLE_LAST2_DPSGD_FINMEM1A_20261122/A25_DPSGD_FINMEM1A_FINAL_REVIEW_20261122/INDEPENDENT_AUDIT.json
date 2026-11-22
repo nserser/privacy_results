@@ -1,0 +1,33 @@
+{
+  "checks": {
+    "archived_p1_fs_14_of_14": true,
+    "conditional_gpu_after_same_node_parity": true,
+    "expected_final_state_ids_complete": true,
+    "expected_manifest_present": true,
+    "expected_vs_observed_final_state_ids_exact": true,
+    "expected_vs_observed_k4_fs_exact": true,
+    "expected_vs_observed_memory_rows_exact": true,
+    "final_state_jobs_cpu_only": true,
+    "fresh_convergence_anchors_3_pass": true,
+    "fresh_p1_final_curve_7_direct": true,
+    "fs_epsilon_bounds_valid": true,
+    "k4_consecutive_two_delta_fs_wins": true,
+    "k4_three_final_points": true,
+    "last_three_local_beta_positive": true,
+    "m0_pass": true,
+    "memory_7_points": true,
+    "memory_criteria": true,
+    "p1_fs_all_seven_points_matched": true,
+    "p1_scaling_gate": true,
+    "p1_strict_fs_two_consecutive_asymptotic": true,
+    "p2_fs_deferred": true,
+    "spectral_validation_under_5pct": true
+  },
+  "checks_passed": 22,
+  "checks_total": 22,
+  "failed_checks": [],
+  "gpu_use": "none for final-state/memory; only conditional k4 FS after parity PASS",
+  "historical_decisions_preserved": true,
+  "independent_method": "recomputed from raw CSV/JSON artifacts; does not import aggregate or decision code",
+  "status": "PASS"
+}

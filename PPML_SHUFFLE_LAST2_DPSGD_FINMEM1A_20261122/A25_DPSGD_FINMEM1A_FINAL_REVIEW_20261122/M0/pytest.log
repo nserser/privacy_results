@@ -1,0 +1,32 @@
+................F.....                                                   [100%]
+=================================== FAILURES ===================================
+________________ test_full_plan_freeze_and_required_user_lines _________________
+
+    def test_full_plan_freeze_and_required_user_lines():
+>       C=yaml.safe_load((ROOT/'configs/full_staged.yaml').read_text())
+
+input/MEMFRONT2_REVIEW/SOURCES/tests/test_plan_freeze.py:10: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.10/pathlib.py:1134: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/users/anis.bkakria/privacy/PPML_SHUFFLE_LAST2_DPSGD_FINMEM1_INVESTIGATION_20261121/input/MEMFRONT2_REVIEW/SOURCES/configs/full_staged.yaml')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/users/anis.bkakria/privacy/PPML_SHUFFLE_LAST2_DPSGD_FINMEM1_INVESTIGATION_20261121/input/MEMFRONT2_REVIEW/SOURCES/configs/full_staged.yaml'
+
+/usr/lib/python3.10/pathlib.py:1119: FileNotFoundError
+=========================== short test summary info ============================
+FAILED input/MEMFRONT2_REVIEW/SOURCES/tests/test_plan_freeze.py::test_full_plan_freeze_and_required_user_lines
+1 failed, 21 passed in 1.64s

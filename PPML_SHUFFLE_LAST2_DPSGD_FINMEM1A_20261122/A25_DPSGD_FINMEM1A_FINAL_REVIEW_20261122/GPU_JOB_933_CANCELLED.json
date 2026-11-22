@@ -1,0 +1,8 @@
+{
+  "job_id": "933",
+  "state": "CANCELLED by 1113",
+  "elapsed": "00:03:25",
+  "outputs_emitted": false,
+  "reason": "The initial production version replayed every GPU accountant convolution on CPU, which defeated the intended acceleration and had not produced a query result. The same-node bitwise kernel parity and historical same-node end-to-end accountant parity had already passed. Production k=4 queries were changed to use the frozen deterministic gather kernel directly, retaining no atomic scatter and no tolerance changes.",
+  "scientific_k4_queries_completed": 0
+}

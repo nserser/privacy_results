@@ -1,0 +1,130 @@
+{
+  "M": 16384,
+  "absent_escaped_mass": 1.6489722948918852e-12,
+  "absent_latent_mass_error": -1.3665315574272454e-12,
+  "absent_survived_mass": 0.9999999999997176,
+  "absent_total_mass_defect": 2.824407374646398e-13,
+  "b": 1,
+  "chi2_forward": 7.677435634866542e-07,
+  "chi2_reverse": 7.676726922178263e-07,
+  "config": {
+    "A": 0.55,
+    "B": 0.05,
+    "M": 16384,
+    "b": 1,
+    "eta": 0.1,
+    "grid_label": "DOMAIN",
+    "k": 2,
+    "line": "P1",
+    "m": 0.5,
+    "max_r": 4096,
+    "nmodes": 32,
+    "nx": 1601,
+    "tail_sigma": 40.0,
+    "tol": 1e-11,
+    "x_max": 8.0,
+    "z": 2.0
+  },
+  "elapsed_s": 21.109490633010864,
+  "epsilon": {
+    "0.001": {
+      "epsilon_conditional_grid": 0.0,
+      "epsilon_final_upper_with_mass_defect": 0.0
+    },
+    "1e-05": {
+      "epsilon_conditional_grid": 0.0017703878754685644,
+      "epsilon_final_upper_with_mass_defect": 0.0017703879036810818
+    }
+  },
+  "evidence_label": "DIRECT_FULL_GRID",
+  "grid": "DOMAIN",
+  "id": "b5a11482e9064dc6c652",
+  "k": 2,
+  "line": "P1",
+  "present_escaped_mass": 1.648844969879424e-12,
+  "present_latent_mass_error": -1.287356353061473e-12,
+  "present_survived_mass": 0.9999999999996385,
+  "present_total_mass_defect": 3.6148861681795097e-13,
+  "privacy_profile_grid": [
+    {
+      "delta_forward": 0.0003465875740524141,
+      "delta_forward_upper": 0.00034658757469634345,
+      "delta_reverse": 0.00034658757405244895,
+      "delta_reverse_upper": 0.0003465875746963783,
+      "delta_symmetric": 0.00034658757405244895,
+      "delta_symmetric_upper": 0.0003465875746963783,
+      "epsilon": 0.0,
+      "tau_p": 3.6148861681795097e-13,
+      "tau_q": 2.824407374646398e-13
+    },
+    {
+      "delta_forward": 1.3784772145363061e-232,
+      "delta_forward_upper": 6.7363390594371e-13,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 6.819474439872307e-13,
+      "delta_symmetric": 1.3784772145363061e-232,
+      "delta_symmetric_upper": 6.819474439872307e-13,
+      "epsilon": 0.1,
+      "tau_p": 3.6148861681795097e-13,
+      "tau_q": 2.824407374646398e-13
+    },
+    {
+      "delta_forward": 5e-324,
+      "delta_forward_upper": 7.241497024305781e-13,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 7.466013093021846e-13,
+      "delta_symmetric": 5e-324,
+      "delta_symmetric_upper": 7.466013093021846e-13,
+      "epsilon": 0.25,
+      "tau_p": 3.6148861681795097e-13,
+      "tau_q": 2.824407374646398e-13
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 8.271546683881333e-13,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 8.784347091283637e-13,
+      "delta_symmetric": 0.0,
+      "delta_symmetric_upper": 8.784347091283637e-13,
+      "epsilon": 0.5,
+      "tau_p": 3.6148861681795097e-13,
+      "tau_q": 2.824407374646398e-13
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 1.1292421410846532e-12,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 1.2650686757556707e-12,
+      "delta_symmetric": 0.0,
+      "delta_symmetric_upper": 1.2650686757556707e-12,
+      "epsilon": 1.0,
+      "tau_p": 3.6148861681795097e-13,
+      "tau_q": 2.824407374646398e-13
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 2.4484590705675185e-12,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 2.9535004062573254e-12,
+      "delta_symmetric": 0.0,
+      "delta_symmetric_upper": 2.9535004062573254e-12,
+      "epsilon": 2.0,
+      "tau_p": 3.6148861681795097e-13,
+      "tau_q": 2.824407374646398e-13
+    },
+    {
+      "delta_forward": 0.0,
+      "delta_forward_upper": 1.578223037638426e-11,
+      "delta_reverse": 0.0,
+      "delta_reverse_upper": 2.0019050473764914e-11,
+      "delta_symmetric": 0.0,
+      "delta_symmetric_upper": 2.0019050473764914e-11,
+      "epsilon": 4.0,
+      "tau_p": 3.6148861681795097e-13,
+      "tau_q": 2.824407374646398e-13
+    }
+  ],
+  "status": "OK",
+  "tv_symmetric_grid": 0.00034658757405243155,
+  "tv_symmetric_upper_mass_defect": 0.0003465875746963609
+}

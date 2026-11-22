@@ -1,0 +1,23 @@
+[
+  {
+    "line": "P1",
+    "k": 4,
+    "M": 1024,
+    "b": 1,
+    "status": "CONDITIONAL_AUTHORIZED_AFTER_P1_K2_PASS"
+  },
+  {
+    "line": "P1",
+    "k": 4,
+    "M": 2048,
+    "b": 1,
+    "status": "CONDITIONAL_AUTHORIZED_AFTER_P1_K2_PASS"
+  },
+  {
+    "line": "P1",
+    "k": 4,
+    "M": 4096,
+    "b": 1,
+    "status": "CONDITIONAL_AUTHORIZED_AFTER_P1_K2_PASS"
+  }
+]

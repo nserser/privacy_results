@@ -1,0 +1,36 @@
+stages: [gaussian, nonlinear, bridges]
+common:
+  x_max: 8.0
+  nx: 301
+  mass_tol: 1.0e-7
+  cc_method: be
+  cc_substeps: 4
+  theory_theta: 1.0
+  theory_slack: 0.05
+  epsilon_grid: [0.0, 0.5]
+  delta_targets: [1.0e-3]
+gaussian:
+  M: [16, 32]
+  b: [1]
+  cases:
+    - {k: 1, mu: 0.25, rho: 0.5}
+    - {k: 2, mu: 0.25, rho: 0.5}
+nonlinear:
+  M: [16, 32]
+  cases:
+    - {b: 1, k: 1, m: 0.5, A: 0.55, B: 0.05, tau: 1.0}
+bridges:
+  M: [16]
+  b: 1
+  k: [1]
+  m: 0.5
+  A: 0.55
+  B: 0.05
+  tau: 1.0
+  eta_sgld: [0.25]
+  eta_dpsgd: [0.2]
+  noise_multiplier: [2.0]
+  mass_loss_tol: 1.0e-8
+  tail_sigma: 40.0
+  solver_sgld: {x_max: 10.0, nx: 501, drop_tol: 0.0}
+  solver_dpsgd: {x_max: 6.0, nx: 601, drop_tol: 0.0}

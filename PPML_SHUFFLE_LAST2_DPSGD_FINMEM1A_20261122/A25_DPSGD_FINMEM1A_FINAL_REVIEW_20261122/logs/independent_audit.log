@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "checks_passed": 22,
+  "checks_total": 22,
+  "checks": {
+    "m0_pass": true,
+    "archived_p1_fs_14_of_14": true,
+    "fs_epsilon_bounds_valid": true,
+    "memory_7_points": true,
+    "memory_criteria": true,
+    "spectral_validation_under_5pct": true,
+    "fresh_p1_final_curve_7_direct": true,
+    "fresh_convergence_anchors_3_pass": true,
+    "p1_scaling_gate": true,
+    "last_three_local_beta_positive": true,
+    "p1_strict_fs_two_consecutive_asymptotic": true,
+    "p1_fs_all_seven_points_matched": true,
+    "k4_three_final_points": true,
+    "k4_consecutive_two_delta_fs_wins": true,
+    "expected_manifest_present": true,
+    "expected_final_state_ids_complete": true,
+    "expected_vs_observed_final_state_ids_exact": true,
+    "expected_vs_observed_memory_rows_exact": true,
+    "final_state_jobs_cpu_only": true,
+    "conditional_gpu_after_same_node_parity": true,
+    "p2_fs_deferred": true,
+    "expected_vs_observed_k4_fs_exact": true
+  },
+  "failed_checks": [],
+  "independent_method": "recomputed from raw CSV/JSON artifacts; does not import aggregate or decision code",
+  "historical_decisions_preserved": true,
+  "gpu_use": "none for final-state/memory; only conditional k4 FS after parity PASS"
+}

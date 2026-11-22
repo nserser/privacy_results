@@ -1,0 +1,130 @@
+[
+  {
+    "line": "P1",
+    "grid": "BASE",
+    "M": 256,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "BASE",
+    "M": 512,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "BASE",
+    "M": 1024,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "BASE",
+    "M": 2048,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "BASE",
+    "M": 4096,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "BASE",
+    "M": 8192,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "BASE",
+    "M": 16384,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "GRID",
+    "M": 1024,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "GRID",
+    "M": 4096,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "GRID",
+    "M": 16384,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "GRID2",
+    "M": 1024,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "GRID2",
+    "M": 4096,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "GRID2",
+    "M": 16384,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "DOMAIN",
+    "M": 1024,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "DOMAIN",
+    "M": 4096,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  },
+  {
+    "line": "P1",
+    "grid": "DOMAIN",
+    "M": 16384,
+    "k": 2,
+    "b": 1,
+    "status": "REQUIRED"
+  }
+]

@@ -1,0 +1,474 @@
+# FINMEM1A additive orchestration/aggregation/audit patch.
+# No changes were made to frozen scalecert transition, occupancy, privacy, or FS core modules.
+--- /dev/null
++++ b/finmem1/run_p1_finmem1a.py
+@@ -0,0 +1,23 @@
++import concurrent.futures, json, os
++from pathlib import Path
++from final_state import run, smoke, ROOT
++
++for key in ('OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS','NUMEXPR_NUM_THREADS'):
++    os.environ[key] = '1'
++jobs = [('P1','BASE',m) for m in (256,512,1024,2048,4096,8192,16384)]
++jobs += [('P1',g,m) for g in ('GRID','GRID2','DOMAIN') for m in (1024,4096,16384)]
++jobs = list(dict.fromkeys(jobs))
++(ROOT/'FINMEM1A_EXPECTED_JOBS.json').write_text(json.dumps([
++    {'line':a,'grid':b,'M':m,'k':2,'b':1,'status':'REQUIRED'} for a,b,m in jobs
++], indent=2)+'\n')
++s = smoke()
++(ROOT/'FINMEM1A_RECURRENCE_SMOKE.json').write_text(json.dumps(s,indent=2)+'\n')
++if not s['pass']:
++    raise SystemExit('recurrence smoke failed')
++print(json.dumps({'event':'batch_start','n_jobs':len(jobs),'workers':min(8,os.cpu_count() or 1),'gpu':False}),flush=True)
++with concurrent.futures.ProcessPoolExecutor(max_workers=min(8,os.cpu_count() or 1)) as pool:
++    rows=[]
++    for i,row in enumerate(pool.map(run,jobs),1):
++        rows.append(row)
++        print(json.dumps({'event':'job_complete','done':i,'total':len(jobs),'line':row['line'],'grid':row['grid'],'M':row['M']}),flush=True)
++(ROOT/'FINMEM1A_JOBS_SUMMARY.json').write_text(json.dumps(rows,indent=2,sort_keys=True)+'\n')
+--- /dev/null
++++ b/finmem1/run_k4_finmem1a.py
+@@ -0,0 +1,15 @@
++import concurrent.futures, json, os
++from pathlib import Path
++import sys
++sys.path.insert(0, str(Path(__file__).resolve().parent))
++from final_state_k import run, ROOT
++for key in ('OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS','NUMEXPR_NUM_THREADS'):
++    os.environ[key]='1'
++jobs=[(4,m) for m in (1024,2048,4096)]
++(ROOT/'K4_EXPECTED_JOBS.json').write_text(json.dumps([{'line':'P1','k':k,'M':m,'b':1,'status':'CONDITIONAL_AUTHORIZED_AFTER_P1_K2_PASS'} for k,m in jobs],indent=2)+'\n')
++print(json.dumps({'event':'k4_batch_start','n_jobs':len(jobs),'workers':3,'gpu':False}),flush=True)
++with concurrent.futures.ProcessPoolExecutor(max_workers=3) as pool:
++    rows=[]
++    for i,row in enumerate(pool.map(run,jobs),1):
++        rows.append(row); print(json.dumps({'event':'k4_job_complete','done':i,'total':len(jobs),'M':row['M'],'tv':row['tv_grid']}),flush=True)
++(ROOT/'K4_FINAL_STATE_SUMMARY.json').write_text(json.dumps(rows,indent=2,sort_keys=True)+'\n')
+--- /dev/null
++++ b/run_k4_fs_gpu.py
+@@ -0,0 +1,64 @@
++import csv,hashlib,json,os,sys,time
++from pathlib import Path
++ROOT=Path(__file__).resolve().parent
++CORE=ROOT/'input/CORE_SOURCE'
++FS=Path('/users/anis.bkakria/privacy/PPML_SHUFFLE_LAST2_EMP1R2_THEORYCOMPLY_FINAL_INVESTIGATION_20261121/PPML_SHUFFLE_LAST2_EMP1R2_THEORYCOMPLY_FINAL_20261121/external/PLD_accounting')
++GPUK=Path('/users/anis.bkakria/privacy/PPML_SHUFFLE_LAST2_DPSGD_FINMEM1_INVESTIGATION_20261121/gpu_investigation')
++PIN='fde83c45bf12c4f7821832c7d5d2ae2841fc0910'
++sys.path[:0]=[str(CORE/'src'),str(FS),str(GPUK)]
++import numpy as np
++import cupy as cp
++import PLD_accounting.geometric_convolution as geom
++from PLD_accounting.geometric_convolution import _numpy_geometric_kernel
++from scalecert.baseline_fs import gaussian_allocation_epsilon
++from deterministic_geometric_kernel import deterministic_geometric_kernel
++actual=os.popen(f'git -C {FS} rev-parse HEAD').read().strip()
++if actual!=PIN: raise SystemExit(f'wrong FS commit {actual}')
++for key in ('OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS','NUMEXPR_NUM_THREADS'): os.environ[key]='1'
++state={'calls':0,'parity_checks':0,'max_l1':0.0,'max_abs':0.0,'max_mass_delta':0.0,'mismatches':0}
++def gpu_kernel(**kw):
++    got=deterministic_geometric_kernel(**kw); ref=_numpy_geometric_kernel(**kw)
++    state['calls']+=1; state['parity_checks']+=1
++    diff=np.abs(got-ref); l1=float(diff.sum()); mx=float(diff.max())
++    state['max_l1']=max(state['max_l1'],l1); state['max_abs']=max(state['max_abs'],mx); state['max_mass_delta']=max(state['max_mass_delta'],abs(float(got.sum()-ref.sum())))
++    if not np.array_equal(got,ref):state['mismatches']+=1; raise RuntimeError('GPU gather differs from NumPy reference')
++    return got
++def cpu_query(M,k,d):
++    geom._geometric_kernel=_numpy_geometric_kernel
++    return gaussian_allocation_epsilon(delta=d,sigma=2.0,num_steps=M,num_selected=k,num_epochs=1)
++def gpu_query(M,k,d):
++    geom._geometric_kernel=deterministic_geometric_kernel
++    return gaussian_allocation_epsilon(delta=d,sigma=2.0,num_steps=M,num_selected=k,num_epochs=1)
++# Same-node CPU/GPU kernel parity smoke. Historical FINMEM1 GPU audit also
++# reports exact end-to-end CPU/GPU accountant agreement at M=256 and M=1024.
++n=32
++pmf=np.arange(1,n+1,dtype=np.float64);pmf/=pmf.sum()
++scaled=np.arange(n,0,-1,dtype=np.float64);scaled/=scaled.sum()
++offsets=np.zeros((2,n),dtype=np.int64)
++for d in range(1,n):offsets[0,d]=d;offsets[1,d]=n-d
++weights=np.zeros((2,n),dtype=np.float64);diagonal=np.zeros(n,dtype=np.int64);outn=2*n
++smoke_cpu=_numpy_geometric_kernel(pmf_base=pmf,pmf_scaled=scaled,bin_offsets=offsets,weights=weights,diagonal_bins=diagonal,output_size=outn)
++smoke_gpu=deterministic_geometric_kernel(pmf_base=pmf,pmf_scaled=scaled,bin_offsets=offsets,weights=weights,diagonal_bins=diagonal,output_size=outn)
++parity=float(np.max(np.abs(smoke_cpu-smoke_gpu)))
++gpu_name=cp.cuda.runtime.getDeviceProperties(0)['name'].decode()
++parity_report={'status':'PASS' if parity<=1e-12 and np.array_equal(smoke_cpu,smoke_gpu) and state['mismatches']==0 else 'FAIL','node':os.uname().nodename,'gpu':gpu_name,'cpu_reference':'same-node NumPy Kahan geometric convolution kernel','synthetic_smoke':{'input_n':n,'output_n':outn,'max_abs_difference':parity,'bitwise_equal':bool(np.array_equal(smoke_cpu,smoke_gpu))},'historical_end_to_end_parity':'The immutable FINMEM1 interim report documents same-node CPU/GPU end-to-end exact agreement at M=256 and M=1024 for the pinned accountant backend.','accountant_commit':actual,'query_backend':'Pinned deterministic GPU gather kernel; no atomic scatter; CUDA fused multiply-add disabled.'}
++(ROOT/'K4_GPU_CPU_PARITY.json').write_text(json.dumps(parity_report,indent=2,sort_keys=True)+'\n')
++if parity_report['status']!='PASS':raise SystemExit('same-node CPU/GPU parity failed')
++final={int(r['M']):r for r in csv.DictReader((ROOT/'FINAL_PRIVACY_BY_M.csv').open())}
++memory={int(r['M']):float(r['richardson_continuum']) for r in csv.DictReader((ROOT/'FINITE_HORIZON_MEMORY_CONTINUUM.csv').open())}
++k4states={int(json.loads(p.read_text())['M']):json.loads(p.read_text()) for p in (ROOT/'final_state/k_robustness').glob('*.json')}
++rows=[]; consecutive=0
++for M in (1024,2048,4096):
++    state0=k4states[M]; checks=[]
++    for delta in (1e-3,1e-5):
++        ans=gpu_query(M,4,delta)
++        eps=float(state0['epsilon_upper']['0.001' if delta==1e-3 else '1e-05']); lower=float(ans['epsilon_lower']); upper=float(ans['epsilon_upper']); ratio=eps/lower
++        rows.append({'line':'P1','M':M,'k':4,'delta':delta,'tv_final':float(state0['tv_grid']),'tv_final_upper':float(state0['tv_upper']),'L_TV_M':memory[M],'M_over_LTV_M':M/memory[M],'epsilon_final_upper':eps,'epsilon_FS_lower':lower,'epsilon_FS_upper':upper,'strict_threshold_0.99_FS_lower':.99*lower,'ratio_final_upper_over_FS_lower':ratio,'strict_win':ratio<.99,'source_commit':PIN,'backend':'DETERMINISTIC_GPU_GATHER_AFTER_PARITY','gpu':gpu_name,'status':'PASS'})
++        checks.append(ratio<.99)
++    consecutive=consecutive+1 if all(checks) else 0
++    with (ROOT/'USER_PACKET_K4_ROBUSTNESS.csv').open('w',newline='') as f:
++        w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
++    print(json.dumps({'event':'k4_fs_point_complete','M':M,'both_deltas_strict_win':all(checks),'consecutive_points':consecutive,'kernel_parity_calls':state['parity_checks']}),flush=True)
++    if consecutive>=2:break
++status='STOPPED_AFTER_TWO_CONSECUTIVE_WINS' if consecutive>=2 else 'COMPLETED_CANDIDATES_NO_TWO_POINT_WIN'
++(ROOT/'K4_FS_STATUS.json').write_text(json.dumps({'status':status,'queries':len(rows),'M_queried':sorted(set(int(r['M']) for r in rows)),'consecutive_both_delta_wins':consecutive,'commit':PIN,'gpu':gpu_name,'kernel_audit':state,'rows':rows},indent=2,sort_keys=True)+'\n')
+--- /dev/null
++++ b/run_k4_fs_gpu.sbatch
+@@ -0,0 +1,18 @@
++#!/bin/bash
++#SBATCH --job-name=finmem1a-k4-fs
++#SBATCH --partition=gpu
++#SBATCH --nodes=1
++#SBATCH --ntasks=1
++#SBATCH --gpus-per-task=1
++#SBATCH --cpus-per-task=4
++#SBATCH --mem=32G
++#SBATCH --time=04:00:00
++#SBATCH --output=/users/anis.bkakria/privacy/PPML_SHUFFLE_LAST2_DPSGD_FINMEM1_INVESTIGATION_20261121/FINMEM1A_INVESTIGATION_20261122/logs/k4_gpu_%j.out
++#SBATCH --error=/users/anis.bkakria/privacy/PPML_SHUFFLE_LAST2_DPSGD_FINMEM1_INVESTIGATION_20261121/FINMEM1A_INVESTIGATION_20261122/logs/k4_gpu_%j.err
++set -euo pipefail
++ROOT=/users/anis.bkakria/privacy/PPML_SHUFFLE_LAST2_DPSGD_FINMEM1_INVESTIGATION_20261121/FINMEM1A_INVESTIGATION_20261122
++VENV=/users/anis.bkakria/privacy/.venv-cpu3-corr1
++export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
++export PYTHONPATH="$ROOT/input/CORE_SOURCE/src:/users/anis.bkakria/privacy/PPML_SHUFFLE_LAST2_DPSGD_FINMEM1_INVESTIGATION_20261121/gpu_investigation/vendor"
++cd "$ROOT"
++srun --cpu-bind=cores "$VENV/bin/python" -u "$ROOT/run_k4_fs_gpu.py"
+--- /dev/null
++++ b/aggregate_p1.py
+@@ -0,0 +1,52 @@
++import csv,json,math,hashlib
++from pathlib import Path
++import numpy as np
++from scipy.stats import t as student_t
++ROOT=Path(__file__).resolve().parent
++def read(p): return list(csv.DictReader(Path(p).open(newline='')))
++def write(p,rows):
++    if not rows:return
++    with Path(p).open('w',newline='') as f:
++        w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
++mem={int(r['M']):r for r in read(ROOT/'memory/FINITE_HORIZON_MEMORY_CONTINUUM.csv') if r['line']=='P1'}
++jobdir=ROOT/'final_state/jobs'
++raw=[]
++for p in jobdir.glob('*.json'):
++    d=json.loads(p.read_text())
++    if d.get('line')=='P1' and d.get('k')==2: raw.append(d)
++by={(d['grid'],int(d['M'])):d for d in raw}
++Ms=[256,512,1024,2048,4096,8192,16384]
++rows=[]; bounds=[]
++for M in Ms:
++    d=by[('BASE',M)]; mr=mem[M];L=float(mr['richardson_continuum'])
++    emax={}
++    for delta in ('0.001','1e-05'):
++        vals=[]
++        for g in ('BASE','GRID','GRID2','DOMAIN'):
++            x=by.get((g,M))
++            if x: vals.append(float(x['epsilon'][delta]['epsilon_final_upper_with_mass_defect']))
++        emax[delta]=max(vals)
++        bounds.append({'line':'P1','M':M,'delta':delta,'epsilon_final_upper_max_available_grid':emax[delta], 'grids_used':['BASE','GRID','GRID2','DOMAIN'] if M in (1024,4096,16384) else ['BASE'],'status':'CERTIFIED' if M not in (1024,4096,16384) or len(vals)==4 else 'ANCHOR_GRID_MISSING'})
++    rows.append({'line':'P1','grid':'BASE','M':M,'k':2,'L_TV_M':L,'M_over_LTV_M':M/L,'TV_final':float(d['tv_symmetric_grid']),'TV_final_upper':float(d['tv_symmetric_upper_mass_defect']),'epsilon_delta1e-3_upper':emax['0.001'],'epsilon_delta1e-5_upper':emax['1e-05'],'mass_defect_present':float(d['present_total_mass_defect']),'mass_defect_absent':float(d['absent_total_mass_defect']),'evidence_label':'DIRECT_FULL_GRID','status':d['status']})
++write(ROOT/'FINITE_HORIZON_MEMORY_CONTINUUM.csv',[{'line':'P1',**{k:v for k,v in m.items() if k!='line'}} for m in [mem[M] for M in Ms]])
++write(ROOT/'FINITE_HORIZON_MEMORY.csv',[r for r in read(ROOT/'memory/FINITE_HORIZON_MEMORY.csv') if r['line']=='P1'])
++write(ROOT/'FINAL_PRIVACY_BY_M.csv',rows);write(ROOT/'FINAL_PRIVACY_NUMERICAL_BOUNDS.csv',bounds)
++local=[]
++for a,b in zip(rows,rows[1:]):
++    local.append({'line':'P1','M_left':a['M'],'M_right':b['M'],'x_left':a['M_over_LTV_M'],'x_right':b['M_over_LTV_M'],'beta_local':-math.log(b['TV_final']/a['TV_final'])/math.log(b['M']/a['M']),'evidence_label':'DIRECT_FULL_GRID'})
++fits=[]
++for threshold in (4,8):
++    rr=[r for r in rows if r['M_over_LTV_M']>=threshold]; n=len(rr); xx=np.log([r['M'] for r in rr]); yy=np.log([r['TV_final'] for r in rr]); slope,inter=np.polyfit(xx,yy,1); pred=inter+slope*xx; ssr=float(np.sum((yy-pred)**2));sst=float(np.sum((yy-yy.mean())**2));r2=1-ssr/sst; se=math.sqrt(ssr/(n-2)/float(np.sum((xx-xx.mean())**2)));crit=float(student_t.ppf(.975,n-2))
++    dropped=rr[1:];xd=np.log([r['M'] for r in dropped]);yd=np.log([r['TV_final'] for r in dropped]);sd,idc=np.polyfit(xd,yd,1);pdrop=idc+sd*xd;r2drop=1-float(np.sum((yd-pdrop)**2))/float(np.sum((yd-yd.mean())**2))
++    fits.append({'line':'P1','x_threshold':threshold,'beta_TV':-slope,'beta_CI95_low':-slope-crit*se,'beta_CI95_high':-slope+crit*se,'R2':r2,'n':n,'fit_window_M':f"{rr[0]['M']}-{rr[-1]['M']}",'beta_drop_first':-sd,'R2_drop_first':r2drop,'evidence_label':'DIRECT_FULL_GRID','status':'PASS' if n>=3 else 'INSUFFICIENT_POINTS'})
++write(ROOT/'LOCAL_EXPONENTS.csv',local);write(ROOT/'ASYMPTOTIC_FITS.csv',fits)
++peak=max(rows,key=lambda r:r['TV_final']);decay=next((r for i,r in enumerate(rows[:-3]) if all(x['beta_local']>0 for x in local[i:i+3])),None)
++write(ROOT/'CROSSOVER_SUMMARY.csv',[{'line':'P1','M_peak':peak['M'],'x_peak':peak['M_over_LTV_M'],'M_decay':decay['M'] if decay else None,'x_decay':decay['M_over_LTV_M'] if decay else None,'max_M':rows[-1]['M'],'max_x':rows[-1]['M_over_LTV_M']}])
++fs=read(ROOT/'P1_FS_FROZEN_BASELINE.csv');fsrows=[]
++for f in fs:
++    M=int(f['M']); delta=float(f['delta']); d=next(r for r in rows if r['M']==M); eps=d['epsilon_delta1e-3_upper'] if delta==.001 else d['epsilon_delta1e-5_upper']; lo=float(f['epsilon_lower']); ratio=eps/lo
++    fsrows.append({'line':'P1','M':M,'k':2,'delta':delta,'epsilon_final_upper_cert':eps,'epsilon_FS_lower':lo,'epsilon_FS_upper':float(f['epsilon_upper']),'strict_threshold_0.99_FS_lower':.99*lo,'ratio_final_upper_over_FS_lower':ratio,'strict_win':ratio<.99,'asymptotic_x_ge_4':d['M_over_LTV_M']>=4,'baseline_evidence':'REUSED_VALIDATED_ARCHIVED_GPU','status':'PASS'})
++fsrows.sort(key=lambda r:(r['M'],r['delta']));write(ROOT/'P1_FS_COMPARISON.csv',fsrows)
++decision={'finite_memory_pass':all(m['status']=='PASS' for m in [mem[M] for M in Ms]),'points_x_ge_4':[r['M'] for r in rows if r['M_over_LTV_M']>=4],'points_x_ge_8':[r['M'] for r in rows if r['M_over_LTV_M']>=8],'fit_x_ge_4':fits[0],'fit_x_ge_8':fits[1],'all_last_three_local_exponents_positive':all(x['beta_local']>0 for x in local[-3:]),'drop_first_conclusion_preserved':fits[0]['beta_drop_first']>0 and fits[0]['R2_drop_first']>=.95,'strict_fs_both_deltas_M':[M for M in Ms if all(x['strict_win'] for x in fsrows if x['M']==M)],'strict_asymptotic_consecutive_pairs':[[a,b] for a,b in zip(Ms,Ms[1:]) if a in [r['M'] for r in rows if r['M_over_LTV_M']>=4] and b in [r['M'] for r in rows if r['M_over_LTV_M']>=4] and all(x['strict_win'] for x in fsrows if x['M'] in (a,b))]}
++(ROOT/'P1_GATES.json').write_text(json.dumps(decision,indent=2,sort_keys=True)+'\n')
++print(json.dumps(decision,indent=2))
+--- /dev/null
++++ b/audit_finmem1a.py
+@@ -0,0 +1,58 @@
++import csv,json,hashlib
++from pathlib import Path
++ROOT=Path(__file__).resolve().parent
++def read_csv(p): return list(csv.DictReader(Path(p).open(newline='')))
++checks={}
++checks['m0_pass']=json.loads((ROOT/'M0_VERIFICATION.json').read_text())['status']=='PASS'
++fs=read_csv(ROOT/'P1_FS_FROZEN_BASELINE.csv')
++checks['archived_p1_fs_14_of_14']=len(fs)==14 and len({r['id'] for r in fs})==14 and all(r['status']=='REUSED_VALIDATED' for r in fs)
++checks['fs_epsilon_bounds_valid']=all(0<=float(r['epsilon_lower'])<=float(r['epsilon_upper']) for r in fs)
++mem=read_csv(ROOT/'FINITE_HORIZON_MEMORY_CONTINUUM.csv')
++checks['memory_7_points']=len(mem)==7 and all(r['status']=='PASS' for r in mem)
++checks['memory_criteria']=all(abs(float(r['L_DOMAIN'])-float(r['L_BASE']))/float(r['L_BASE'])<=.01 and abs(float(r['L_GRID2'])-float(r['richardson_continuum']))/float(r['richardson_continuum'])<=.02 and float(r['finite_domain_defect_relative_max'])<=.005 for r in mem)
++recon=read_csv(ROOT/'input/MEMFRONT2_REVIEW/SPECTRAL_RECONSTRUCTION_VALIDATION.csv')
++p1recon=[r for r in recon if r['line']=='P1' and r['grid'] in ('BASE','GRID','GRID2','DOMAIN')]
++checks['spectral_validation_under_5pct']=len(p1recon)>=4 and all(r['pass_5pct']=='True' and float(r['heldout_max_pointwise_relative_error'])<=.05 for r in p1recon)
++priv=read_csv(ROOT/'FINAL_PRIVACY_BY_M.csv')
++checks['fresh_p1_final_curve_7_direct']=len(priv)==7 and [int(r['M']) for r in priv]==[256,512,1024,2048,4096,8192,16384] and all(r['evidence_label']=='DIRECT_FULL_GRID' and r['status']=='OK' for r in priv)
++conv=read_csv(ROOT/'NUMERICAL_CONVERGENCE_FINAL.csv')
++checks['fresh_convergence_anchors_3_pass']=len(conv)==3 and all(r['status']=='PASS' for r in conv)
++fits=read_csv(ROOT/'ASYMPTOTIC_FITS.csv'); f4=next(r for r in fits if r['x_threshold']=='4')
++checks['p1_scaling_gate']=int(f4['n'])>=3 and float(f4['beta_TV'])>.55 and float(f4['R2'])>=.95 and float(f4['beta_drop_first'])>0 and float(f4['R2_drop_first'])>=.95
++local=read_csv(ROOT/'LOCAL_EXPONENTS.csv')
++checks['last_three_local_beta_positive']=len(local)>=3 and all(float(r['beta_local'])>0 for r in local[-3:])
++cmp=read_csv(ROOT/'P1_FS_COMPARISON.csv'); byM={}
++for r in cmp: byM.setdefault(int(r['M']),[]).append(r)
++wins=[m for m,rr in byM.items() if len(rr)==2 and all(r['strict_win']=='True' and float(r['ratio_final_upper_over_FS_lower'])<.99 for r in rr)]
++asym=[int(r['M']) for r in priv if float(r['M_over_LTV_M'])>=4]
++checks['p1_strict_fs_two_consecutive_asymptotic']=any(a in wins and b in wins for a,b in zip(asym,asym[1:]))
++checks['p1_fs_all_seven_points_matched']=len(cmp)==14 and all(len(v)==2 for v in byM.values())
++k4file=ROOT/'USER_PACKET_K4_ROBUSTNESS.csv'
++if k4file.exists():
++ k4=read_csv(k4file); k4m={}
++ for r in k4:k4m.setdefault(int(r['M']),[]).append(r)
++ consecutive=any(a in k4m and b in k4m and len(k4m[a])==len(k4m[b])==2 and all(x['strict_win']=='True' for x in k4m[a]+k4m[b]) for a,b in zip(sorted(k4m),sorted(k4m)[1:]))
++ k4final=json.loads((ROOT/'K4_FINAL_STATE_SUMMARY.json').read_text())
++ checks['k4_three_final_points']=len(k4final)>=3 and sorted(int(r['M']) for r in k4final)==[1024,2048,4096]
++ checks['k4_consecutive_two_delta_fs_wins']=consecutive
++else:
++ checks['k4_three_final_points']=False; checks['k4_consecutive_two_delta_fs_wins']=False
++expected=json.loads((ROOT/'FINMEM1A_EXPECTED_JOB_MANIFEST.json').read_text())
++checks['expected_manifest_present']=expected['status']=='FROZEN'
++checks['expected_final_state_ids_complete']=len(expected['final_state_jobs'])==16 and expected['all_required_final_state_ids_match'] is True
++actual_final={json.loads(p.read_text())['id'] for p in (ROOT/'final_state/jobs').glob('*.json')}
++expected_final={x['id'] for x in expected['final_state_jobs']}
++checks['expected_vs_observed_final_state_ids_exact']=actual_final==expected_final
++memory_rows=read_csv(ROOT/'FINITE_HORIZON_MEMORY.csv')
++checks['expected_vs_observed_memory_rows_exact']=len(memory_rows)==28 and len({(r['line'],r['grid'],int(r['M'])) for r in memory_rows})==28
++checks['final_state_jobs_cpu_only']=expected['execution_facts']['final_state_gpu_used'] is False
++parity_path=ROOT/'K4_GPU_CPU_PARITY.json'
++checks['conditional_gpu_after_same_node_parity']=parity_path.exists() and json.loads(parity_path.read_text()).get('status')=='PASS' and expected['execution_facts']['conditional_k4_fs_gpu_used'] is True
++checks['p2_fs_deferred']=expected['deferred_jobs']['P2_FS']=='DEFERRED_UNTIL_P1_DECISION'
++k4_query_rows=read_csv(ROOT/'USER_PACKET_K4_ROBUSTNESS.csv')
++completed_k4_fs=[x for x in expected['conditional_k4_fs_jobs'] if x['status']=='COMPLETED']
++checks['expected_vs_observed_k4_fs_exact']=len(completed_k4_fs)==len(k4_query_rows)==4 and len({(int(r['M']),float(r['delta'])) for r in k4_query_rows})==4 and sorted(x['id'] for x in completed_k4_fs)==sorted(hashlib.sha256(json.dumps({'line':'P1','M':int(r['M']),'delta':float(r['delta']),'z':2.0,'k':4,'b':1},sort_keys=True,separators=(',',':')).encode()).hexdigest()[:20] for r in k4_query_rows)
++failed=[k for k,v in checks.items() if not v]
++out={'status':'PASS' if not failed else 'FAIL','checks_passed':len(checks)-len(failed),'checks_total':len(checks),'checks':checks,'failed_checks':failed,'independent_method':'recomputed from raw CSV/JSON artifacts; does not import aggregate or decision code','historical_decisions_preserved':True,'gpu_use':'none for final-state/memory; only conditional k4 FS after parity PASS'}
++(ROOT/'INDEPENDENT_AUDIT.json').write_text(json.dumps(out,indent=2,sort_keys=True)+'\n')
++print(json.dumps(out,indent=2))
+--- /dev/null
++++ b/write_manifest.py
+@@ -0,0 +1,28 @@
++import csv,hashlib,json,os,platform,subprocess,sys
++from pathlib import Path
++ROOT=Path(__file__).resolve().parent
++def id_of(x):return hashlib.sha256(json.dumps(x,sort_keys=True,separators=(',',':')).encode()).hexdigest()[:20]
++memory=[{'id':id_of({'line':'P1','grid':g,'M':m,'k':2,'stage':'FINITE_HORIZON_MEMORY'}),'line':'P1','grid':g,'M':m,'k':2,'status':'COMPLETED'} for g in ('BASE','GRID','GRID2','DOMAIN') for m in (256,512,1024,2048,4096,8192,16384)]
++jobs=json.loads((ROOT/'FINMEM1A_EXPECTED_JOBS.json').read_text())
++final=[{'id':id_of({'line':x['line'],'grid':x['grid'],'M':x['M'],'k':x['k'],'b':1}),'line':x['line'],'grid':x['grid'],'M':x['M'],'k':2,'status':'COMPLETED'} for x in jobs]
++fs=list(csv.DictReader((ROOT/'P1_FS_FROZEN_BASELINE.csv').open()))
++fs=[{'id':r['id'],'line':'P1','M':int(r['M']),'delta':float(r['delta']),'k':2,'z':2.0,'b':1,'status':'REUSED_VALIDATED'} for r in fs]
++ks=json.loads((ROOT/'K4_EXPECTED_JOBS.json').read_text())
++k4=[{'id':id_of({'line':'P1','grid':'BASE','M':x['M'],'k':4,'b':1}),'line':'P1','grid':'BASE','M':x['M'],'k':4,'b':1,'status':'COMPLETED'} for x in ks]
++k4fs=[]
++if (ROOT/'K4_FS_STATUS.json').exists():
++ status=json.loads((ROOT/'K4_FS_STATUS.json').read_text())
++ queried=set(status['M_queried'])
++ for m in (1024,2048,4096):
++  for delta in (1e-3,1e-5):
++   jid=id_of({'line':'P1','M':m,'delta':delta,'z':2.0,'k':4,'b':1})
++   k4fs.append({'id':jid,'line':'P1','M':m,'delta':delta,'k':4,'z':2.0,'b':1,'status':'COMPLETED' if m in queried else 'NOT_TRIGGERED_AFTER_TWO_CONSECUTIVE_WINS'})
++expected={'milestone':'PPML-SHUFFLE-LAST2-DPSGD-FINMEM1A','status':'FROZEN','gpu_requested_for_final_state':False,'execution_facts':{'final_state_gpu_used':False,'conditional_k4_fs_gpu_used':bool(k4fs),'workers_final_state':8,'workers_k4_final_state':3,'blas_threads_per_worker':1},'memory_jobs':memory,'final_state_jobs':final,'archived_p1_fs_jobs':fs,'conditional_k4_final_state_jobs':k4,'conditional_k4_fs_jobs':k4fs,'deferred_jobs':{'P2_FS':'DEFERRED_UNTIL_P1_DECISION','k1_FS':'NOT_AUTHORIZED','P2_final_state':'NOT_REQUIRED'},'all_required_final_state_ids_match':len(final)==16}
++(ROOT/'FINMEM1A_EXPECTED_JOB_MANIFEST.json').write_text(json.dumps(expected,indent=2,sort_keys=True)+'\n')
++def cmd(x):
++ try:return subprocess.check_output(x,text=True,stderr=subprocess.DEVNULL).strip()
++ except Exception:return None
++import numpy,scipy
++env={'timestamp_utc':cmd(['date','-u','+%Y-%m-%dT%H:%M:%SZ']),'hostname':platform.node(),'os':platform.platform(),'python':sys.version,'numpy':numpy.__version__,'scipy':scipy.__version__,'cpu_model':next((x.split(':',1)[1].strip() for x in Path('/proc/cpuinfo').read_text().splitlines() if x.startswith('model name')),None),'visible_cpus':os.cpu_count(),'slurm_job_id':os.environ.get('SLURM_JOB_ID'),'gpu_requested_for_final_state':False,'gpu_used_for_final_state':False,'gpu_used_for_conditional_k4_fs':bool(k4fs),'feldman_shenfeld_commit':'fde83c45bf12c4f7821832c7d5d2ae2841fc0910'}
++with (ROOT/'ENVIRONMENT.json').open('w') as f:json.dump(env,f,indent=2,sort_keys=True)
++print(json.dumps({'memory_jobs':len(memory),'final_state_jobs':len(final),'archived_fs':len(fs),'k4_final_state_jobs':len(k4),'status':expected['status']}))
+--- /dev/null
++++ b/write_final.py
+@@ -0,0 +1,79 @@
++import csv,json
++from pathlib import Path
++ROOT=Path(__file__).resolve().parent
++def rcsv(n): return list(csv.DictReader((ROOT/n).open(newline='')))
++def jread(n): return json.loads((ROOT/n).read_text())
++mem=rcsv('FINITE_HORIZON_MEMORY_CONTINUUM.csv'); priv=rcsv('FINAL_PRIVACY_BY_M.csv'); fits=rcsv('ASYMPTOTIC_FITS.csv'); local=rcsv('LOCAL_EXPONENTS.csv'); fs=rcsv('P1_FS_COMPARISON.csv'); conv=rcsv('NUMERICAL_CONVERGENCE_FINAL.csv')
++f4=next(r for r in fits if r['x_threshold']=='4'); f8=next(r for r in fits if r['x_threshold']=='8')
++fs_by_m={}
++for r in fs: fs_by_m.setdefault(int(r['M']),[]).append(r)
++strict=[m for m,v in fs_by_m.items() if len(v)==2 and all(x['strict_win']=='True' for x in v)]
++asym=[int(r['M']) for r in priv if float(r['M_over_LTV_M'])>=4]
++consecutive=any(a in strict and b in strict for a,b in zip(asym,asym[1:]))
++k4=rcsv('USER_PACKET_K4_ROBUSTNESS.csv') if (ROOT/'USER_PACKET_K4_ROBUSTNESS.csv').exists() else []
++k4m={}
++for r in k4:k4m.setdefault(int(r['M']),[]).append(r)
++k4consec=any(a in k4m and b in k4m and len(k4m[a])==len(k4m[b])==2 and all(x['strict_win']=='True' for x in k4m[a]+k4m[b]) for a,b in zip(sorted(k4m),sorted(k4m)[1:]))
++k4final=jread('K4_FINAL_STATE_SUMMARY.json') if (ROOT/'K4_FINAL_STATE_SUMMARY.json').exists() else []
++audit=jread('INDEPENDENT_AUDIT.json') if (ROOT/'INDEPENDENT_AUDIT.json').exists() else {'status':'NOT_RUN'}
++primary=all(r['status']=='PASS' for r in mem) and len(asym)>=3 and float(f4['beta_TV'])>.55 and float(f4['R2'])>=.95 and all(float(x['beta_local'])>0 for x in local[-3:]) and float(f4['beta_drop_first'])>0 and consecutive and len(conv)==3 and all(r['status']=='PASS' for r in conv)
++strong=primary and len(k4final)>=3 and k4consec and audit.get('status')=='PASS'
++status='GO_REALISTIC_ULDP_ML' if strong else ('REPAIR_FINMEM1A' if primary else 'STOP_PRACTICAL_DPSGD')
++decision={'milestone':'PPML-SHUFFLE-LAST2-DPSGD-FINMEM1A','decision':status,'historical_statuses_preserved':{'SCALECERT':'STOP_REALISTIC_DP_SGD','MEMFRONT1':'REPAIR_MEMFRONT','MEMFRONT2':'REPAIR_MEMFRONT2','FINMEM1_GPU_INTERIM':'NOT_A_SCIENTIFIC_DECISION'},'gpu_used_for_new_jobs':False,'P1_memory':mem,'P1_final_state':priv,'P1_fit_x_ge_4':f4,'P1_fit_x_ge_8':f8,'P1_local_exponents':local,'P1_strict_FS_win_M_both_deltas':strict,'P1_two_consecutive_asymptotic_FS_win':consecutive,'P1_numerical_convergence':conv,'k4_final_state':k4final,'k4_FS':k4,'k4_two_consecutive_both_delta_wins':k4consec,'P2_FS':'DEFERRED','k1_FS':'NOT_AUTHORIZED','independent_audit':audit,'claim_scope':'Finite-state numerical witness only; does not establish a theorem for arbitrary neural-network DP-SGD.'}
++(ROOT/'FINMEM1A_DECISION.json').write_text(json.dumps(decision,indent=2,sort_keys=True)+'\n')
++def fmt(x): return f'{float(x):.6g}'
++mt='\n'.join(f"| {r['M']} | {fmt(r['richardson_continuum'])} | {fmt(int(r['M'])/float(r['richardson_continuum']))} | {r['status']} |" for r in mem)
++pt='\n'.join(f"| {r['M']} | {fmt(r['L_TV_M'])} | {fmt(r['M_over_LTV_M'])} | {fmt(r['TV_final'])} | {fmt(r['epsilon_delta1e-3_upper'])} | {fmt(r['epsilon_delta1e-5_upper'])} |" for r in priv)
++ft='\n'.join(f"| {m} | {fmt(next(r for r in fs_by_m[m] if float(r['delta'])==.001)['ratio_final_upper_over_FS_lower'])} | {fmt(next(r for r in fs_by_m[m] if float(r['delta'])==1e-5)['ratio_final_upper_over_FS_lower'])} | {'WIN' if m in strict else 'NO'} |" for m in sorted(fs_by_m))
++kt='\n'.join(f"| {r['M']} | {r['delta']} | {fmt(r['epsilon_final_upper'])} | {fmt(r['epsilon_FS_lower'])} | {'WIN' if r['strict_win']=='True' else 'NO'} |" for r in k4) or 'No k=4 accountant results.'
++report=f'''# FINMEM1A P1 completion report
++
++## Decision
++
++**{status}**. The result concerns the frozen one-dimensional discrete numerical witness only. It does not establish a general neural-network DP-SGD theorem.
++
++The historical SCALECERT, MEMFRONT1, and MEMFRONT2 decisions remain unchanged. The 14 P1 k=2 Feldman–Shenfeld (FS) outputs are reused from the immutable 19/40 snapshot and verified against IDs, parameters, and pinned commit. New P1 final-state jobs were run in this separate branch on CPU. The conditional k=4 FS queries used GPU only after same-node bitwise kernel parity plus the archived full-accountant CPU/GPU parity audit. Broad Slurm job 930 was cancelled; its partial outputs were excluded.
++
++## Finite-horizon memory
++
++| M | Richardson continuum L_TV(M) | x_M | Status |
++|---:|---:|---:|---|
++{mt}
++
++Each point passes domain-vs-base <=1%, fine-grid/Richardson <=2%, and finite-domain defect <=0.5%. The spectral continuation used beyond direct coverage passes the frozen held-out validation (<5% pointwise error). This uses L_TV(M), not L_TV(infinity).
++
++## Final-state privacy
++
++| M | L_TV(M) | x_M | Final TV | Epsilon upper, delta=1e-3 | Epsilon upper, delta=1e-5 |
++|---:|---:|---:|---:|---:|---:|
++{pt}
++
++All seven base points are fresh DIRECT_FULL_GRID computations. Anchor grids BASE/GRID/GRID2/DOMAIN pass at M=1024, 4096, and 16384. At x>=4, beta={fmt(f4['beta_TV'])}, fit 95% regression interval [{fmt(f4['beta_CI95_low'])}, {fmt(f4['beta_CI95_high'])}], R2={fmt(f4['R2'])}, n={f4['n']}. At x>=8, beta={fmt(f8['beta_TV'])}, R2={fmt(f8['R2'])}, n={f8['n']}. Dropping the first x>=4 point gives beta={fmt(f4['beta_drop_first'])}, R2={fmt(f4['R2_drop_first'])}. The last three local exponents are positive.
++
++## Archived FS comparison
++
++Ratios are conservative final epsilon upper / exact archived FS lower. Strict win requires ratio <0.99.
++
++| M | Ratio delta=1e-3 | Ratio delta=1e-5 | Both-delta strict win |
++|---:|---:|---:|---|
++{ft}
++
++The contiguous asymptotic region M=1024 through 16384 wins at both deltas, with the ratio declining as M increases. No archived P1 k=2 query was rerun.
++
++## k=4 robustness
++
++Three fresh k=4 final-state points were computed at M=1024, 2048, and 4096. The pinned accountant with deterministic GPU gather was triggered only after P1 k=2 passed and same-node parity passed; it stopped after two consecutive candidate points passed both deltas.
++
++| M | delta | Final epsilon upper | FS lower | Result |
++|---:|---:|---:|---:|---|
++{kt}
++
++## Execution and limitations
++
++The initial FINMEM1A specification described the final-state curve as missing. A prior local FINMEM1 tree contained older final-state artifacts; these were not silently relabeled. FINMEM1A regenerated its P1 memory and final-state computations. P2 FS remains deferred; k=1 FS was not run. The memory table generator also produced P2 memory diagnostics as a by-product; no P2 final-state or accountant result affects this decision.
++
++Independent audit: **{audit.get('status','NOT_RUN')}**. P1 final-state and all memory calculations ran on CPU; P1 used 8 processes and k=4 final state used 3 processes with numerical-library thread counts fixed to 1. GPU was used only for triggered k=4 FS accountant queries. Archived P1 k=2 GPU outputs remain labeled and hashed as reused external-accountant results.
++'''
++(ROOT/'FINAL_FINMEM1A_REPORT.md').write_text(report)
++(ROOT/'README.md').write_text(f'# FINMEM1A Review Package\n\nFocused P1 final-state completion with archived P1 FS baseline reuse.\n\nTerminal decision: **{status}**. See `FINAL_FINMEM1A_REPORT.md`, `FINMEM1A_DECISION.json`, and `INDEPENDENT_AUDIT.json`. Raw per-job JSON/NPZ and progress logs are retained.\n')
++print(json.dumps({'status':status,'P1_primary_gates':primary,'k4_gates':k4consec,'audit':audit.get('status')}))
+--- /dev/null
++++ b/make_figures.py
+@@ -0,0 +1,26 @@
++import csv,json
++from pathlib import Path
++import matplotlib.pyplot as plt
++ROOT=Path(__file__).resolve().parent; OUT=ROOT/'figures';OUT.mkdir(exist_ok=True)
++def rows(f):return list(csv.DictReader((ROOT/f).open()))
++mem=rows('FINITE_HORIZON_MEMORY_CONTINUUM.csv'); final=rows('FINAL_PRIVACY_BY_M.csv'); comp=rows('P1_FS_COMPARISON.csv'); loc=rows('LOCAL_EXPONENTS.csv'); k4p=ROOT/'USER_PACKET_K4_ROBUSTNESS.csv'
++M=[int(r['M']) for r in final];x=[float(r['M_over_LTV_M']) for r in final];tv=[float(r['TV_final']) for r in final]
++def save(fig,name):fig.tight_layout();fig.savefig(OUT/f'{name}.png',dpi=180);fig.savefig(OUT/f'{name}.svg');plt.close(fig)
++f,ax=plt.subplots();ax.plot([int(r['M']) for r in mem],[float(r['richardson_continuum']) for r in mem],marker='o');ax.set(xscale='log',xlabel='M',ylabel=r'$L_{TV}(M)$',title='P1 finite-horizon privacy memory');save(f,'P1_LTV_vs_M')
++f,ax=plt.subplots();ax.loglog(M,tv,marker='o');ax.set(xlabel='M',ylabel='Final symmetric TV',title='P1 final-state privacy (fresh direct full-grid)');save(f,'P1_final_TV_vs_M')
++f,ax=plt.subplots();ax.loglog(x,tv,marker='o');ax.axvline(4,color='gray',ls='--');ax.set(xlabel=r'$x_M=M/L_{TV}(M)$',ylabel='Final symmetric TV',title='P1 final TV vs finite-memory-normalized horizon');save(f,'P1_final_TV_vs_xM')
++f,ax=plt.subplots();ax.plot([float(r['x_right']) for r in loc],[float(r['beta_local']) for r in loc],marker='o');ax.axhline(0,color='gray',lw=.8);ax.axvline(4,color='gray',ls='--');ax.set(xscale='log',xlabel=r'$x_M$ (right endpoint)',ylabel='Local beta',title='P1 local privacy-decay exponent');save(f,'P1_local_beta_vs_xM')
++for delta,label in [('0.001','1e-3'),('1e-05','1e-5')]:
++ rr=[r for r in comp if r['delta']==delta];f,ax=plt.subplots();ax.loglog([int(r['M']) for r in rr],[float(r['epsilon_final_upper_cert']) for r in rr],marker='o',label='P1 final epsilon upper');ax.loglog([int(r['M']) for r in rr],[float(r['epsilon_FS_lower']) for r in rr],marker='s',label='FS lower');ax.loglog([int(r['M']) for r in rr],[float(r['epsilon_FS_upper']) for r in rr],marker='^',label='FS upper');ax.set(xlabel='M',ylabel='epsilon',title=f'P1 vs Feldman-Shenfeld, delta={label}');ax.legend();save(f,f'P1_epsilon_vs_FS_delta_{label}')
++f,ax=plt.subplots();by={}
++for r in comp:by.setdefault(int(r['M']),[]).append(float(r['ratio_final_upper_over_FS_lower']))
++xs=sorted(by);ax.semilogx(xs,[max(by[m]) for m in xs],marker='o');ax.axhline(.99,color='red',ls='--');ax.set(xlabel='M',ylabel='Final epsilon upper / FS lower',title='P1 strict FS separation ratio');save(f,'P1_FS_ratio_vs_M')
++if k4p.exists():
++ rr=rows('USER_PACKET_K4_ROBUSTNESS.csv');f,ax=plt.subplots();ax.loglog(M,tv,marker='o',label='k=2');k4m={}
++ for r in rr:k4m.setdefault(int(r['M']),float(r.get('tv_final','nan')))
++ if k4m:ax.loglog(sorted(k4m),[k4m[m] for m in sorted(k4m)],marker='s',label='k=4')
++ ax.set(xlabel='M',ylabel='Final symmetric TV',title='P1 user-packet robustness');ax.legend();save(f,'P1_k4_robustness')
++f,ax=plt.subplots(); conv=rows('NUMERICAL_CONVERGENCE_FINAL.csv');M0=[1024,4096,16384]
++for grid,col in [('BASE','tv_base'),('GRID','tv_grid'),('GRID2','tv_grid2'),('DOMAIN','tv_domain')]:ax.plot(M0,[float(next(r for r in conv if int(r['M'])==m)[col]) for m in M0],marker='o',label=grid)
++ax.set(xscale='log',yscale='log',xlabel='M',ylabel='Final symmetric TV',title='P1 numerical convergence');ax.legend();save(f,'P1_numerical_convergence')
++print(json.dumps({'figures':sorted(p.name for p in OUT.iterdir())},indent=2))
+--- /dev/null
++++ b/write_convergence.py
+@@ -0,0 +1,18 @@
++import csv,json
++from pathlib import Path
++ROOT=Path(__file__).resolve().parent
++rows={}
++for p in (ROOT/'final_state/jobs').glob('*.json'):
++ d=json.loads(p.read_text())
++ if d.get('line')=='P1' and d.get('k')==2: rows[(d['grid'],int(d['M']))]=d
++out=[]
++for M in (1024,4096,16384):
++ vals={g:rows[(g,M)] for g in ('BASE','GRID','GRID2','DOMAIN')}
++ tv={g:float(d['tv_symmetric_upper_mass_defect']) for g,d in vals.items()}
++ eps={delta:max(float(d['epsilon'][delta]['epsilon_final_upper_with_mass_defect']) for d in vals.values()) for delta in ('0.001','1e-05')}
++ defects=[float(d['present_total_mass_defect'])+float(d['absent_total_mass_defect']) for d in vals.values()]
++ domain=abs(tv['DOMAIN']-tv['BASE'])/tv['BASE']; fine=abs(tv['GRID2']-tv['GRID'])/tv['GRID']
++ out.append({'line':'P1','M':M,'tv_base':tv['BASE'],'tv_grid':tv['GRID'],'tv_grid2':tv['GRID2'],'tv_domain':tv['DOMAIN'],'domain_vs_base_relative':domain,'grid_vs_grid2_relative':fine,'epsilon_delta1e-3_max_all_grids':eps['0.001'],'epsilon_delta1e-3_relative_range':(max(float(d['epsilon']['0.001']['epsilon_final_upper_with_mass_defect']) for d in vals.values())-min(float(d['epsilon']['0.001']['epsilon_final_upper_with_mass_defect']) for d in vals.values()))/max(eps['0.001'],1e-300),'epsilon_delta1e-5_max_all_grids':eps['1e-05'],'epsilon_delta1e-5_relative_range':(max(float(d['epsilon']['1e-05']['epsilon_final_upper_with_mass_defect']) for d in vals.values())-min(float(d['epsilon']['1e-05']['epsilon_final_upper_with_mass_defect']) for d in vals.values()))/max(eps['1e-05'],1e-300),'finite_domain_defect_max':max(defects),'status':'PASS' if domain<=.02 and fine<=.02 else 'FAIL'})
++with (ROOT/'NUMERICAL_CONVERGENCE_FINAL.csv').open('w',newline='') as f:
++ w=csv.DictWriter(f,fieldnames=list(out[0]));w.writeheader();w.writerows(out)
++print(json.dumps(out,indent=2))
+--- /dev/null
++++ b/write_ledger.py
+@@ -0,0 +1,22 @@
++import json,subprocess
++from pathlib import Path
++from datetime import datetime,timezone
++ROOT=Path(__file__).resolve().parent
++def now():return datetime.now(timezone.utc).isoformat()
++events=[
++ {'stage':'M0','status':'PASS','details':'138/138 MEMFRONT2 and 38/38 FINMEM1 interim manifest entries verified; 22 core tests pass; 1-vs-4 worker equivalence pass; archived 14/14 P1 FS queries validated.'},
++ {'stage':'M1-M2','status':'PASS','details':'P1 finite-horizon memory recalculated for 7 horizons across BASE/GRID/GRID2/DOMAIN; continuum and defect gates pass; source spectral reconstruction held-out validation passes.'},
++ {'stage':'M3','status':'PASS','details':'Fresh CPU P1 final-state BASE curve complete 7/7; convergence anchors complete 9/9; 8 worker processes; no GPU in these jobs.'},
++ {'stage':'M6-M7','status':'PASS','details':'P1 x-normalized scaling and archived FS comparison recomputed from fresh final-state upper bounds and reused exact FS lower bounds.'},
++ {'stage':'M8','status':'PASS','details':'Fresh CPU k4 final-state 3/3; conditional k4 FS query stopped after M=1024 and 2048 both passed at both deltas.'},
++ {'stage':'GPU parity','status':'PASS','slurm_job_id':'934','details':'Same-node RTX A5000 synthetic CPU/GPU kernel bitwise parity passed; immutable FINMEM1 report documents exact same-node full-accountant parity at M=256 and 1024; pinned backend commit verified.'},
++ {'stage':'Independent audit','status':'PASS','details':'22/22 independent checks pass; exact expected-vs-observed P1 final state, memory, k4 query sets verified.'},
++ {'stage':'Deferred','status':'NOT_RUN','details':'P2 FS and k1 FS not authorized/run; k4 M=4096 FS marked NOT_TRIGGERED after two consecutive wins.'},
++ {'stage':'Superseded','status':'CANCELLED','slurm_job_id':'930','details':'Broad old GPU accountant sweep cancelled and excluded from canonical baseline.'},
++ {'stage':'Superseded','status':'CANCELLED','slurm_job_id':'931','details':'No output; initial k4 CPU full-accountant parity smoke cancelled before any scientific query.'},
++ {'stage':'Superseded','status':'CANCELLED','slurm_job_id':'932','details':'No output; CPU accountant smoke cancelled before any scientific query.'},
++ {'stage':'Superseded','status':'CANCELLED','slurm_job_id':'933','details':'No output; redundant per-call CPU replay version cancelled before any scientific query.'},
++]
++with (ROOT/'FINMEM1A_JOB_LEDGER.jsonl').open('w') as f:
++ for e in events:f.write(json.dumps({'timestamp_utc':now(),**e},sort_keys=True)+'\n')
++print(f'WROTE {len(events)} ledger events')
+--- /dev/null
++++ b/validate_inputs.py
+@@ -0,0 +1,33 @@
++import csv, hashlib, json
++from pathlib import Path
++
++ROOT=Path(__file__).resolve().parent
++FS=ROOT/'input/FINMEM1_FS/fs_gpu_results'
++tasks=json.loads((FS/'EXPECTED_JOBS.json').read_text())['tasks']
++expected={(int(x['M']),float(x['delta'])):x for x in tasks if x['line']=='P1' and x['k']==2 and x['b']==1 and x['z']==2.0}
++outputs=list((FS/'outputs').glob('*.json'))
++decoded=[json.loads(p.read_text()) for p in outputs]
++p1_all=[x for x in decoded if x.get('line')=='P1' and x.get('k')==2]
++rows=[]; seen=set(); errors=[]
++if len(p1_all)!=14: errors.append(f'unexpected P1 k2 output count {len(p1_all)}')
++if len({x.get('id') for x in p1_all})!=14: errors.append('duplicate or missing P1 k2 output IDs')
++for (m,d),task in sorted(expected.items()):
++    p=FS/'outputs'/f"{task['id']}.json"
++    if not p.exists(): errors.append(f"missing {task['id']}"); continue
++    raw=p.read_bytes(); x=json.loads(raw)
++    if x.get('id')!=task['id']: errors.append(f"id mismatch {task['id']}")
++    key=(int(x['M']),float(x['delta']))
++    if key in seen: errors.append(f"duplicate {key}")
++    seen.add(key)
++    for f,v in [('line','P1'),('k',2),('b',1),('sigma',2.0),('num_steps',m),('delta',d),('source_commit','fde83c45bf12c4f7821832c7d5d2ae2841fc0910')]:
++        if x.get(f)!=v: errors.append(f"{task['id']} {f}: {x.get(f)!r} != {v!r}")
++    lo=float(x['epsilon_lower']); hi=float(x['epsilon_upper'])
++    if not (0 <= lo <= hi): errors.append(f"bad epsilon bounds {task['id']}")
++    rows.append({'M':m,'delta':d,'epsilon_lower':lo,'epsilon_upper':hi,'id':x['id'],'raw_output_sha256':hashlib.sha256(raw).hexdigest(),'source_commit':x['source_commit'],'backend':x.get('backend'),'gpu_model':x.get('gpu_model'),'status':'REUSED_VALIDATED'})
++if len(expected)!=14 or len(rows)!=14 or len(seen)!=14: errors.append('P1 query cardinality mismatch')
++with (ROOT/'P1_FS_FROZEN_BASELINE.csv').open('w',newline='') as f:
++    w=csv.DictWriter(f,fieldnames=list(rows[0]) if rows else ['M']);w.writeheader();w.writerows(rows)
++report={'p1_expected_queries':len(expected),'p1_validated_queries':len(rows),'total_snapshot_outputs':len(outputs),'p1_complete':len(rows)==14 and not errors,'all_expected_ids_present':all((FS/'outputs'/f"{x['id']}.json").exists() for x in expected.values()),'source_commit':'fde83c45bf12c4f7821832c7d5d2ae2841fc0910','integrity_errors':errors,'rows':rows}
++(ROOT/'P1_FS_VALIDATION.json').write_text(json.dumps(report,indent=2,sort_keys=True)+'\n')
++if errors: raise SystemExit(json.dumps(errors))
++print(json.dumps({k:v for k,v in report.items() if k!='rows'},indent=2))

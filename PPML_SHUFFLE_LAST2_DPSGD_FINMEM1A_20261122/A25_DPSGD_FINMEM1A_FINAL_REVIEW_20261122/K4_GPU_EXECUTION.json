@@ -1,0 +1,16 @@
+{
+  "slurm_job_id": "934",
+  "slurm_state": "COMPLETED",
+  "partition": "gpu",
+  "node": "gpu-cyber.cyber-isx.lan",
+  "gpu_model": "NVIDIA RTX A5000",
+  "gpus_per_task": 1,
+  "cpus_per_task": 4,
+  "memory_gb": 32,
+  "wall_time": "00:00:09",
+  "scientific_role": "conditional P1 k=4 Feldman-Sheneld baseline only",
+  "accountant_commit": "fde83c45bf12c4f7821832c7d5d2ae2841fc0910",
+  "backend": "deterministic output-bin gather; no atomic scatter; CUDA fmad disabled",
+  "parity_artifact": "K4_GPU_CPU_PARITY.json",
+  "final_state_gpu_used": false
+}

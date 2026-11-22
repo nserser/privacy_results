@@ -1,0 +1,32 @@
+{
+  "milestone": "PPML-SHUFFLE-LAST2-DPSGD-FINMEM1A",
+  "timestamp_utc": "2026-11-22T00:12:37Z",
+  "historical_statuses_preserved": {
+    "SCALECERT": "STOP_REALISTIC_DP_SGD",
+    "MEMFRONT1": "REPAIR_MEMFRONT",
+    "MEMFRONT2": "REPAIR_MEMFRONT2",
+    "FINMEM1_GPU_INTERIM": "NOT_A_SCIENTIFIC_DECISION"
+  },
+  "source_packages": {
+    "MEMFRONT2_review_sha256_manifest_entries_verified": 138,
+    "MEMFRONT2_expected_entries": 138,
+    "FINMEM1_interim_sha256_manifest_entries_verified": 38,
+    "FINMEM1_interim_expected_entries": 38,
+    "FINMEM1_interim_snapshot_status": "19/40; immutable archived baseline source"
+  },
+  "implementation": {
+    "memfront2_scientific_source_commit": "5a53dda02a56d03b29bbe477efc9c10258c0ba28",
+    "feldman_shenfeld_commit": "fde83c45bf12c4f7821832c7d5d2ae2841fc0910",
+    "core_tests_complete_source": "PASS 22/22",
+    "abbreviated_source_copy_test": "21 passed, 1 failed at collection because configs/full_staged.yaml is absent from abbreviated source subset; not used as canonical verification",
+    "equivalence_1_worker_vs_4_workers": "PASS exact scientific equivalence: 8 records",
+    "equivalence_records": 8
+  },
+  "execution_policy": {
+    "gpu_requested": false,
+    "gpu_used_for_new_f1_jobs": false,
+    "old_broad_slurm_job_930": "CANCELLED before FINMEM1A; partial records excluded from canonical P1 FS snapshot"
+  },
+  "result_reuse_policy": "Archived P1 FS values reused exactly; new P1 final-state and finite-memory calculations run in this FINMEM1A branch.",
+  "status": "PASS"
+}

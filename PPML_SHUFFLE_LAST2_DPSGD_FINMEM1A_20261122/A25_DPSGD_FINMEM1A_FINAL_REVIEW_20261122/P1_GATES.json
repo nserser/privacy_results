@@ -1,0 +1,73 @@
+{
+  "all_last_three_local_exponents_positive": true,
+  "drop_first_conclusion_preserved": true,
+  "finite_memory_pass": true,
+  "fit_x_ge_4": {
+    "R2": 0.9999999968370828,
+    "R2_drop_first": 0.9999999999863032,
+    "beta_CI95_high": 0.9999948516993169,
+    "beta_CI95_low": 0.9997882055798861,
+    "beta_TV": 0.9998915286396015,
+    "beta_drop_first": 0.9999477014390349,
+    "evidence_label": "DIRECT_FULL_GRID",
+    "fit_window_M": "1024-16384",
+    "line": "P1",
+    "n": 5,
+    "status": "PASS",
+    "x_threshold": 4
+  },
+  "fit_x_ge_8": {
+    "R2": 0.9999999999863032,
+    "R2_drop_first": 0.9999999999732401,
+    "beta_CI95_high": 0.999958960649227,
+    "beta_CI95_low": 0.9999364422288428,
+    "beta_TV": 0.9999477014390349,
+    "beta_drop_first": 0.999945582755668,
+    "evidence_label": "DIRECT_FULL_GRID",
+    "fit_window_M": "2048-16384",
+    "line": "P1",
+    "n": 4,
+    "status": "PASS",
+    "x_threshold": 8
+  },
+  "points_x_ge_4": [
+    1024,
+    2048,
+    4096,
+    8192,
+    16384
+  ],
+  "points_x_ge_8": [
+    2048,
+    4096,
+    8192,
+    16384
+  ],
+  "strict_asymptotic_consecutive_pairs": [
+    [
+      1024,
+      2048
+    ],
+    [
+      2048,
+      4096
+    ],
+    [
+      4096,
+      8192
+    ],
+    [
+      8192,
+      16384
+    ]
+  ],
+  "strict_fs_both_deltas_M": [
+    256,
+    512,
+    1024,
+    2048,
+    4096,
+    8192,
+    16384
+  ]
+}

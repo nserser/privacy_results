@@ -1,0 +1,17 @@
+{"event": "batch_start", "n_jobs": 16, "workers": 8, "gpu": false}
+{"event": "job_complete", "done": 1, "total": 16, "line": "P1", "grid": "BASE", "M": 256}
+{"event": "job_complete", "done": 2, "total": 16, "line": "P1", "grid": "BASE", "M": 512}
+{"event": "job_complete", "done": 3, "total": 16, "line": "P1", "grid": "BASE", "M": 1024}
+{"event": "job_complete", "done": 4, "total": 16, "line": "P1", "grid": "BASE", "M": 2048}
+{"event": "job_complete", "done": 5, "total": 16, "line": "P1", "grid": "BASE", "M": 4096}
+{"event": "job_complete", "done": 6, "total": 16, "line": "P1", "grid": "BASE", "M": 8192}
+{"event": "job_complete", "done": 7, "total": 16, "line": "P1", "grid": "BASE", "M": 16384}
+{"event": "job_complete", "done": 8, "total": 16, "line": "P1", "grid": "GRID", "M": 1024}
+{"event": "job_complete", "done": 9, "total": 16, "line": "P1", "grid": "GRID", "M": 4096}
+{"event": "job_complete", "done": 10, "total": 16, "line": "P1", "grid": "GRID", "M": 16384}
+{"event": "job_complete", "done": 11, "total": 16, "line": "P1", "grid": "GRID2", "M": 1024}
+{"event": "job_complete", "done": 12, "total": 16, "line": "P1", "grid": "GRID2", "M": 4096}
+{"event": "job_complete", "done": 13, "total": 16, "line": "P1", "grid": "GRID2", "M": 16384}
+{"event": "job_complete", "done": 14, "total": 16, "line": "P1", "grid": "DOMAIN", "M": 1024}
+{"event": "job_complete", "done": 15, "total": 16, "line": "P1", "grid": "DOMAIN", "M": 4096}
+{"event": "job_complete", "done": 16, "total": 16, "line": "P1", "grid": "DOMAIN", "M": 16384}

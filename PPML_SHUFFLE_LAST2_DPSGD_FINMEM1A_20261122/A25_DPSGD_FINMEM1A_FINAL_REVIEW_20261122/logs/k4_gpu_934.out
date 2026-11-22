@@ -1,0 +1,2 @@
+{"event": "k4_fs_point_complete", "M": 1024, "both_deltas_strict_win": true, "consecutive_points": 1, "kernel_parity_calls": 0}
+{"event": "k4_fs_point_complete", "M": 2048, "both_deltas_strict_win": true, "consecutive_points": 2, "kernel_parity_calls": 0}

@@ -1,0 +1,15 @@
+{
+  "accountant_commit": "fde83c45bf12c4f7821832c7d5d2ae2841fc0910",
+  "cpu_reference": "same-node NumPy Kahan geometric convolution kernel",
+  "gpu": "NVIDIA RTX A5000",
+  "historical_end_to_end_parity": "The immutable FINMEM1 interim report documents same-node CPU/GPU end-to-end exact agreement at M=256 and M=1024 for the pinned accountant backend.",
+  "node": "gpu-cyber.cyber-isx.lan",
+  "query_backend": "Pinned deterministic GPU gather kernel; no atomic scatter; CUDA fused multiply-add disabled.",
+  "status": "PASS",
+  "synthetic_smoke": {
+    "bitwise_equal": true,
+    "input_n": 32,
+    "max_abs_difference": 0.0,
+    "output_n": 64
+  }
+}

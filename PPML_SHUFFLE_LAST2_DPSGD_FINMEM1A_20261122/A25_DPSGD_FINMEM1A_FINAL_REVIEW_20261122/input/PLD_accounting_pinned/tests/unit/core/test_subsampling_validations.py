@@ -1,0 +1,160 @@
+"""Tests for subsampling grid and PLD realization validation."""
+
+import math
+
+import numpy as np
+import pytest
+
+from PLD_accounting.discrete_dist import GridSpec, PLDRealization
+from PLD_accounting.subsample_pld import (
+    _calc_subsampled_grid,
+    _stable_subsampling_transformation,
+    subsample_pld_realization,
+)
+from PLD_accounting.types import Direction
+
+
+def _simple_remove_dist() -> PLDRealization:
+    grid = GridSpec(step=0.5, n=4, anchor=0.0)
+    return PLDRealization(grid=grid, prob_arr=np.array([0.4, 0.3, 0.2, 0.1], dtype=np.float64))
+
+
+def test_subsample_pld_realization_rejects_invalid_sampling_probability():
+    """Subsample pld realization rejects invalid sampling probability."""
+    dist = _simple_remove_dist()
+    with pytest.raises(ValueError, match="sampling_prob must be in"):
+        subsample_pld_realization(
+            base_pld=dist,
+            sampling_prob=0.0,
+            direction=Direction.REMOVE,
+        )
+    with pytest.raises(ValueError, match="sampling_prob must be in"):
+        subsample_pld_realization(
+            base_pld=dist,
+            sampling_prob=1.1,
+            direction=Direction.REMOVE,
+        )
+
+
+def test_subsample_pld_realization_rejects_direction_both():
+    """Subsample pld realization rejects direction both."""
+    dist = _simple_remove_dist()
+    with pytest.raises(ValueError, match="direction must be one of"):
+        subsample_pld_realization(
+            base_pld=dist,
+            sampling_prob=0.5,
+            direction=Direction.BOTH,
+        )
+
+
+def test_subsample_pld_realization_q1_returns_input_distribution():
+    """Subsample pld realization q1 returns input distribution."""
+    dist = _simple_remove_dist()
+    result = subsample_pld_realization(
+        base_pld=dist,
+        sampling_prob=1.0,
+        direction=Direction.REMOVE,
+    )
+    assert result is dist
+
+
+def test_subsample_pld_realization_returns_valid_pld_realization_remove():
+    """Subsample pld realization returns valid pld realization remove."""
+    dist = _simple_remove_dist()
+    result = subsample_pld_realization(
+        base_pld=dist,
+        sampling_prob=0.3,
+        direction=Direction.REMOVE,
+    )
+    assert isinstance(result, PLDRealization)
+    result._require_pld_realization()
+
+
+def test_subsample_pld_realization_returns_valid_pld_realization_add():
+    """Subsample pld realization returns valid pld realization add."""
+    grid = GridSpec(step=0.25, n=5, anchor=0.0)
+    dist = PLDRealization(
+        grid=grid, prob_arr=np.array([0.24, 0.2, 0.18, 0.16, 0.14], dtype=np.float64), p_max=0.08
+    )
+    result = subsample_pld_realization(
+        base_pld=dist,
+        sampling_prob=0.3,
+        direction=Direction.ADD,
+    )
+    assert isinstance(result, PLDRealization)
+    result._require_pld_realization()
+
+
+def test_remove_ctd_mixes_non_pld_dual_branch_before_projecting():
+    """Algorithm 8 validates the mixture, not its transformed -D(L) branch."""
+    base = _simple_remove_dist()
+    result = subsample_pld_realization(
+        base_pld=base,
+        sampling_prob=0.3,
+        direction=Direction.REMOVE,
+    )
+    result._require_pld_realization()
+
+
+def test_subsample_pld_realization_add_places_positive_infinity_mass_at_max_add_loss():
+    # Regression case: add-direction +inf mass must map to -log(1-q), not to the
+    # rightmost transformed finite bin when that bin is below the cap.
+    """Subsample pld realization add places positive infinity mass at max add loss."""
+    q = 0.3708686650516492
+    prob_arr = np.full(44, 0.0018884873605871 / 44.0, dtype=np.float64)
+    grid = GridSpec(step=0.02532892132180583, n=prob_arr.size, anchor=-6.305102226697834)
+    dist = PLDRealization(grid=grid, prob_arr=prob_arr, p_max=0.998111512639413)
+
+    result = subsample_pld_realization(
+        base_pld=dist,
+        sampling_prob=q,
+        direction=Direction.ADD,
+    )
+
+    max_add_loss = -math.log1p(-q)
+    assert result.x_array[-1] >= max_add_loss
+    result._require_pld_realization()
+
+
+def test_calc_subsampled_grid_rejects_invalid_bucket_count():
+    """Calc subsampled grid rejects invalid bucket count."""
+    source_grid = GridSpec(step=0.1, n=1)
+    with pytest.raises(ValueError, match="num_buckets must be >= 2"):
+        _calc_subsampled_grid(
+            source_grid=source_grid,
+            sampling_prob=0.5,
+            direction=Direction.REMOVE,
+            include_right=None,
+        )
+
+
+def test_calc_subsampled_grid_rejects_invalid_sampling_prob():
+    """Calc subsampled grid rejects invalid sampling probability."""
+    source_grid = GridSpec(step=0.1, n=10)
+    with pytest.raises(ValueError, match="sampling_prob must be in"):
+        _calc_subsampled_grid(
+            source_grid=source_grid,
+            sampling_prob=0.0,
+            direction=Direction.REMOVE,
+            include_right=None,
+        )
+
+
+def test_stable_subsampling_transformation_handles_extreme_losses():
+    """Stable subsampling transformation handles extreme losses."""
+    losses = np.array([-750.0, -100.0, -1.0, 0.0, 1.0, 100.0, 750.0], dtype=np.float64)
+    transformed_remove = _stable_subsampling_transformation(
+        x_array=losses,
+        sampling_prob=0.01,
+        direction=Direction.REMOVE,
+    )
+    transformed_add = _stable_subsampling_transformation(
+        x_array=losses,
+        sampling_prob=0.01,
+        direction=Direction.ADD,
+    )
+
+    assert np.all(np.isfinite(transformed_remove))
+    assert np.all(np.isfinite(transformed_add))
+    assert np.all(np.diff(transformed_remove) >= 0.0)
+    assert np.all(np.diff(transformed_add) >= 0.0)

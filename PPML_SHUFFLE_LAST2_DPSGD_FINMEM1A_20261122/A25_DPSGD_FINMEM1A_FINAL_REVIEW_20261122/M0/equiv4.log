@@ -1,0 +1,9 @@
+jobs=8 workers=4 shard=0/1 stages=default
+gaussian 0e856b13710094c65c15 OK
+gaussian e4b72e5c3b7da4ddeebc OK
+gaussian fc77ca6145139bab0872 OK
+gaussian feb3787b60f6b85a0d50 OK
+nonlinear d44764f511d70d39a4a8 OK
+nonlinear 8d0a1397b3811d65fa7e OK
+bridge_dpsgd d1642d1ccbc1a280d3f6 OK
+bridge_sgld bb94b522bb244eb493a1 OK
